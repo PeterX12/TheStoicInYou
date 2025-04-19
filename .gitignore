@@ -1,4 +1,17 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Expo
+.expo/
+node_modules/
+dist/
+
+# Android/iOS
+android/
+ios/
+*.apk
+*.aab
+*.ipa
+
+# Environment variables
+.env# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
 node_modules/
