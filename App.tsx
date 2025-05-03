@@ -45,14 +45,16 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+            let iconName: keyof typeof Ionicons.glyphMap;
 
             if (route.name === "Archive") {
-              iconName = focused ? "archive" : "archive-outline";
+              iconName = focused ? "book" : "book-outline";
             } else if (route.name === "Meditations") {
-              iconName = focused ? "meditation" : "meditation-outline";
+              iconName = focused ? "library" : "library-outline";
             } else if (route.name === "Profile") {
-              iconName = focused ? "person" : "person-outline";
+              iconName = focused ? "person-circle" : "person-circle-outline";
+            } else {
+              iconName = "ellipse";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
