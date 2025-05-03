@@ -48,9 +48,9 @@ export default function App() {
             let iconName: keyof typeof Ionicons.glyphMap;
 
             if (route.name === "Archive") {
-              iconName = focused ? "book" : "book-outline";
-            } else if (route.name === "Meditations") {
               iconName = focused ? "library" : "library-outline";
+            } else if (route.name === "Meditations") {
+              iconName = focused ? "book" : "book-outline";
             } else if (route.name === "Profile") {
               iconName = focused ? "person-circle" : "person-circle-outline";
             } else {
