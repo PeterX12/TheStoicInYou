@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ArchiveScreen from "@screens/Archive/ArchiveScreen";
 import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
 import ProfileScreen from "@screens/Profile/ProfileScreen";
+import { AppColors } from "constants/colors";
 
 const ArchiveStack = createNativeStackNavigator();
 const MeditationsStack = createNativeStackNavigator();
@@ -59,8 +60,8 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "#2F80ED",
-          tabBarInactiveTintColor: "#828282",
+          tabBarActiveTintColor: AppColors.tabBarActiveColor,
+          tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
           tabBarStyle: {
             height: 60,
             paddingBottom: 8,
@@ -81,7 +82,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: AppColors.AppBackground,
     alignItems: "center",
     justifyContent: "center",
   },
