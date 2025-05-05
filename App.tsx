@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 function ArchiveStackScreen() {
   return (
     <ArchiveStack.Navigator>
-      <ArchiveStack.Screen name="Archive" component={ArchiveScreen} />
+      <ArchiveStack.Screen name="ArchiveHome" component={ArchiveScreen} />
     </ArchiveStack.Navigator>
   );
 }
@@ -25,7 +25,7 @@ function MeditationsStackScreen() {
   return (
     <MeditationsStack.Navigator>
       <MeditationsStack.Screen
-        name="Meditations"
+        name="MeditationsHome"
         component={MeditationsScreen}
       />
     </MeditationsStack.Navigator>
@@ -35,7 +35,7 @@ function MeditationsStackScreen() {
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );
 }
