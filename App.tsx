@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ArchiveScreen from "@screens/Archive/ArchiveScreen";
 import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
 import ProfileScreen from "@screens/Profile/ProfileScreen";
+import { AppColors } from "constants/colors";
 
 const ArchiveStack = createNativeStackNavigator();
 const MeditationsStack = createNativeStackNavigator();
@@ -15,7 +16,7 @@ const Tab = createBottomTabNavigator();
 function ArchiveStackScreen() {
   return (
     <ArchiveStack.Navigator>
-      <ArchiveStack.Screen name="Archive" component={ArchiveScreen} />
+      <ArchiveStack.Screen name="ArchiveHome" component={ArchiveScreen} />
     </ArchiveStack.Navigator>
   );
 }
@@ -24,7 +25,7 @@ function MeditationsStackScreen() {
   return (
     <MeditationsStack.Navigator>
       <MeditationsStack.Screen
-        name="Meditations"
+        name="MeditationsHome"
         component={MeditationsScreen}
       />
     </MeditationsStack.Navigator>
@@ -34,7 +35,7 @@ function MeditationsStackScreen() {
 function ProfileStackScreen() {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );
 }
@@ -59,8 +60,8 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "#2F80ED",
-          tabBarInactiveTintColor: "#828282",
+          tabBarActiveTintColor: AppColors.tabBarActiveColor,
+          tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
           tabBarStyle: {
             height: 60,
             paddingBottom: 8,
@@ -77,12 +78,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
