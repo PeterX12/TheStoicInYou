@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 export default function ArchiveScreen() {
   return (
-    <View style={AppStyles.container}>
+    <View style={AppStyles.fullScreen}>
       <Text>Archive Screen</Text>
     </View>
   );
