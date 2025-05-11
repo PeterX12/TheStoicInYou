@@ -9,7 +9,7 @@ export const useUserSetup = () => {
     const checkUserSetup = async () => {
       try {
         const userData = await AsyncStorage.getItem("@user_profile");
-        setIsUserSetup(!userData);
+        setIsUserSetup(!!userData);
       } catch (error) {
         console.error("Error checking user setup:", error);
         setIsLoading(true);

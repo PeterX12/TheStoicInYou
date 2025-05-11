@@ -10,12 +10,22 @@ import { AppColors } from "constants/colors";
 import * as SplashScreen from "expo-splash-screen";
 import { useUserSetup } from "hooks/useUserSetup";
 import { useEffect } from "react";
+import OnboardingScreen from "@screens/Onboarding/OnboardingScreen";
 
 const ArchiveStack = createNativeStackNavigator();
 const MeditationsStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const OnboardingStack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
+
+function OnboardingStackScreen() {
+  return (
+    <OnboardingStack.Navigator screenOptions={{ headerShown: false }}>
+      <OnboardingStack.Screen name="Onboarding" component={OnboardingScreen} />
+    </OnboardingStack.Navigator>
+  );
+}
 
 function ArchiveStackScreen() {
   return (
@@ -44,6 +54,43 @@ function ProfileStackScreen() {
   );
 }
 
+function MainTabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName: keyof typeof Ionicons.glyphMap;
+
+          if (route.name === "Archive") {
+            iconName = focused ? "library" : "library-outline";
+          } else if (route.name === "Meditations") {
+            iconName = focused ? "book" : "book-outline";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "person-circle" : "person-circle-outline";
+          } else {
+            iconName = "ellipse";
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: AppColors.tabBarActiveColor,
+        tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 8,
+          borderTopWidth: 0,
+          elevation: 8,
+        },
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name="Archive" component={ArchiveStackScreen} />
+      <Tab.Screen name="Meditations" component={MeditationsStackScreen} />
+      <Tab.Screen name="Profile" component={ProfileStackScreen} />
+    </Tab.Navigator>
+  );
+}
+
 export default function App() {
   const { isLoading, isUserSetup } = useUserSetup();
 
@@ -57,39 +104,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {/* {needsSetup ? <OnboardingStack /> : <MainTabNavigator />} */}
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName: keyof typeof Ionicons.glyphMap;
-
-            if (route.name === "Archive") {
-              iconName = focused ? "library" : "library-outline";
-            } else if (route.name === "Meditations") {
-              iconName = focused ? "book" : "book-outline";
-            } else if (route.name === "Profile") {
-              iconName = focused ? "person-circle" : "person-circle-outline";
-            } else {
-              iconName = "ellipse";
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: AppColors.tabBarActiveColor,
-          tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
-          tabBarStyle: {
-            height: 60,
-            paddingBottom: 8,
-            borderTopWidth: 0,
-            elevation: 8,
-          },
-          headerShown: false,
-        })}
-      >
-        <Tab.Screen name="Archive" component={ArchiveStackScreen} />
-        <Tab.Screen name="Meditations" component={MeditationsStackScreen} />
-        <Tab.Screen name="Profile" component={ProfileStackScreen} />
-      </Tab.Navigator>
+      {!isUserSetup ? <OnboardingStackScreen /> : <MainTabNavigator />}
     </NavigationContainer>
   );
 }
