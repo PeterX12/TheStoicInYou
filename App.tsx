@@ -7,11 +7,15 @@ import ArchiveScreen from "@screens/Archive/ArchiveScreen";
 import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
 import ProfileScreen from "@screens/Profile/ProfileScreen";
 import { AppColors } from "constants/colors";
+import * as SplashScreen from "expo-splash-screen";
+import { useUserSetup } from "hooks/useUserSetup";
+import { useEffect } from "react";
 
 const ArchiveStack = createNativeStackNavigator();
 const MeditationsStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+SplashScreen.preventAutoHideAsync();
 
 function ArchiveStackScreen() {
   return (
@@ -41,8 +45,19 @@ function ProfileStackScreen() {
 }
 
 export default function App() {
+  const { isLoading, isUserSetup } = useUserSetup();
+
+  useEffect(() => {
+    if (!isLoading) {
+      SplashScreen.hideAsync();
+    }
+  }, [isLoading]);
+
+  if (isLoading) return null;
+
   return (
     <NavigationContainer>
+      {/* {needsSetup ? <OnboardingStack /> : <MainTabNavigator />} */}
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
