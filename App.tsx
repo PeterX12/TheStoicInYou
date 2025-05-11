@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 function ArchiveStackScreen() {
   return (
-    <ArchiveStack.Navigator>
+    <ArchiveStack.Navigator screenOptions={{ headerShown: false }}>
       <ArchiveStack.Screen name="ArchiveHome" component={ArchiveScreen} />
     </ArchiveStack.Navigator>
   );
@@ -23,7 +23,7 @@ function ArchiveStackScreen() {
 
 function MeditationsStackScreen() {
   return (
-    <MeditationsStack.Navigator>
+    <MeditationsStack.Navigator screenOptions={{ headerShown: false }}>
       <MeditationsStack.Screen
         name="MeditationsHome"
         component={MeditationsScreen}
@@ -34,8 +34,8 @@ function MeditationsStackScreen() {
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} />
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="Profile Home" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );
 }
