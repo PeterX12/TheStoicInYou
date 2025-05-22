@@ -1,9 +1,18 @@
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
+import { useState } from "react";
 import { View, Text, TextInput } from "react-native";
 import { StyleSheet } from "react-native";
 
 export default function OnboardingScreen() {
+  const [name, setName] = useState("");
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [errors, setErrors] = useState({
+    name: "",
+    birthDate: "",
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Stoic in You</Text>
@@ -17,6 +26,9 @@ export default function OnboardingScreen() {
           style={styles.input}
           placeholder="Enter your name"
           placeholderTextColor={AppColors.Black}
+          maxLength={50}
+          value={name}
+          onChangeText={setName}
         />
       </View>
     </View>
