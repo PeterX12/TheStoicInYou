@@ -5,4 +5,6 @@ export const AppColors = {
 
   White: "#FFFFFF",
   Black: "#000000",
+
+  Error: "#FF3B30",
 };
