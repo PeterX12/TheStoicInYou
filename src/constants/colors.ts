@@ -4,4 +4,5 @@ export const AppColors = {
   tabBarInactiveColor: "#000000",
 
   White: "#FFFFFF",
+  Black: "#000000",
 };

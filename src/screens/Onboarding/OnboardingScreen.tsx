@@ -13,7 +13,11 @@ export default function OnboardingScreen() {
 
       <View style={styles.inputContainer}>
         <Text style={styles.inputText}>Full Name</Text>
-        <TextInput style={styles.input} placeholder="Enter your name" />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your name"
+          placeholderTextColor={AppColors.Black}
+        />
       </View>
     </View>
   );
@@ -30,11 +34,13 @@ export const styles = StyleSheet.create({
   title: {
     color: AppColors.White,
     fontSize: 24,
+    textAlign: "center",
   },
   subtitle: {
     color: AppColors.White,
     fontSize: 16,
     marginVertical: 30,
+    textAlign: "center",
   },
   inputContainer: { width: "100%" },
   inputText: {
