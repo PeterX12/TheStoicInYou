@@ -30,6 +30,10 @@ export default function OnboardingScreen() {
           value={name}
           onChangeText={setName}
         />
+        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputText}>Date of birth</Text>
       </View>
     </View>
   );
@@ -65,6 +69,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
+    marginTop: 8,
+  },
+  errorText: {
+    color: AppColors.Error,
+    fontSize: 14,
     marginTop: 8,
   },
 });
