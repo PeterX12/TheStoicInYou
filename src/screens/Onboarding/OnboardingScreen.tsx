@@ -1,8 +1,9 @@
 import { AppColors } from "constants/colors";
-import { AppStyles } from "constants/styles";
-import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, Pressable } from "react-native";
 import { StyleSheet } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import DatePicker from "@components/DatePicker";
 
 export default function OnboardingScreen() {
   const [name, setName] = useState("");
@@ -13,27 +14,42 @@ export default function OnboardingScreen() {
     birthDate: "",
   });
 
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setBirthDate(selectedDate);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Stoic in You</Text>
       <Text style={styles.subtitle}>
         Please enter your name and date of birth
       </Text>
-
       <View style={styles.inputContainer}>
-        <Text style={styles.inputText}>Full Name</Text>
+        <Text style={styles.inputText}>Your Name</Text>
         <TextInput
-          style={styles.input}
-          placeholder="Enter your name"
+          style={[styles.input, errors.name && styles.errorText]}
+          placeholder="Enter your full name"
           placeholderTextColor={AppColors.Black}
-          maxLength={50}
           value={name}
           onChangeText={setName}
+          autoCapitalize="words"
         />
         {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
       </View>
+
       <View style={styles.inputContainer}>
-        <Text style={styles.inputText}>Date of birth</Text>
+        <DatePicker
+          label="Date of Birth"
+          value={birthDate}
+          onChange={setBirthDate}
+          maxDate={new Date()}
+        />
+        {errors.birthDate && (
+          <Text style={styles.errorText}>{errors.birthDate}</Text>
+        )}
       </View>
     </View>
   );
@@ -75,5 +91,9 @@ export const styles = StyleSheet.create({
     color: AppColors.Error,
     fontSize: 14,
     marginTop: 8,
+  },
+  dateText: {
+    color: AppColors.Black,
+    fontSize: 16,
   },
 });
