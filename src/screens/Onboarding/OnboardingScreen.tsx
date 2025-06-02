@@ -15,7 +15,7 @@ export default function OnboardingScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the Stoic in You</Text>
+      <Text style={styles.title}>Welcome to the{"\n"} Stoic in You</Text>
       <Text style={styles.subtitle}>
         Please enter your name and date of birth
       </Text>
