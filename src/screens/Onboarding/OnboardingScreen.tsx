@@ -1,17 +1,29 @@
 import { AppColors } from "constants/colors";
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { StyleSheet } from "react-native";
 import DatePicker from "@components/DatePicker";
 import Button from "@components/Button";
+import { useNavigation } from "@react-navigation/native";
+import { UserProfile } from "types/user";
+import { saveUserProfile } from "services/userService";
 
 export default function OnboardingScreen() {
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [errors, setErrors] = useState({
     name: "",
     birthDate: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
     const newErrors = {
@@ -35,12 +47,24 @@ export default function OnboardingScreen() {
     return !Object.values(newErrors).some((error) => error !== "");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateForm()) return;
+    setIsSubmitting(true);
 
     try {
+      const userProfile: UserProfile = {
+        name: name.trim(),
+        dateOfBirth: birthDate!.toISOString(),
+      };
+
+      await saveUserProfile(userProfile);
+      // navigation.navigate("MainApp");
     } catch (error) {
-      console.error("Failed to save profile:", error);
+      Alert.alert("Error", "Failed to save user profile. Please try again.", [
+        { text: "OK" },
+      ]);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -84,7 +108,10 @@ export default function OnboardingScreen() {
           <Text style={styles.errorText}>{errors.birthDate}</Text>
         )}
 
-        <Button text={"Continue"} onPress={handleSubmit} />
+        <Button
+          text={isSubmitting ? "Saving..." : "Continue"}
+          onPress={handleSubmit}
+        />
       </View>
     </ScrollView>
   );
