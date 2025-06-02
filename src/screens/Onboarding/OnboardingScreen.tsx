@@ -8,18 +8,10 @@ import DatePicker from "@components/DatePicker";
 export default function OnboardingScreen() {
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState<Date | null>(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [errors, setErrors] = useState({
     name: "",
     birthDate: "",
   });
-
-  const handleDateChange = (event: any, selectedDate?: Date) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      setBirthDate(selectedDate);
-    }
-  };
 
   return (
     <View style={styles.container}>

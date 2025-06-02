@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 16,
     marginBottom: 8,
-    color: AppColors.Black,
+    color: AppColors.White,
   },
   input: {
     backgroundColor: AppColors.White,
