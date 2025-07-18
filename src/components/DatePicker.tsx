@@ -124,8 +124,6 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: AppColors.White,
-    borderWidth: 1,
-    borderColor: AppColors.Error,
     borderRadius: 8,
     padding: 12,
     justifyContent: "center",
