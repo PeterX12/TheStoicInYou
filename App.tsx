@@ -1,80 +1,38 @@
-import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ArchiveScreen from "@screens/Archive/ArchiveScreen";
-import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
-import ProfileScreen from "@screens/Profile/ProfileScreen";
-import { AppColors } from "constants/colors";
+import OnboardingScreen from "@screens/Onboarding/OnboardingScreen";
+import * as SplashScreen from "expo-splash-screen";
+import { useUserSetup } from "hooks/useUserSetup";
+import { MainTabNavigator } from "navigation/MainTabNavigator";
+import { useEffect } from "react";
+import { RootStackParamList } from "types/navigation";
 
-const ArchiveStack = createNativeStackNavigator();
-const MeditationsStack = createNativeStackNavigator();
-const ProfileStack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+SplashScreen.preventAutoHideAsync();
 
-function ArchiveStackScreen() {
-  return (
-    <ArchiveStack.Navigator>
-      <ArchiveStack.Screen name="ArchiveHome" component={ArchiveScreen} />
-    </ArchiveStack.Navigator>
-  );
-}
-
-function MeditationsStackScreen() {
-  return (
-    <MeditationsStack.Navigator>
-      <MeditationsStack.Screen
-        name="MeditationsHome"
-        component={MeditationsScreen}
-      />
-    </MeditationsStack.Navigator>
-  );
-}
-
-function ProfileStackScreen() {
-  return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} />
-    </ProfileStack.Navigator>
-  );
-}
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const { isLoading, isUserSetup } = useUserSetup();
+
+  useEffect(() => {
+    if (!isLoading) {
+      SplashScreen.hideAsync();
+    }
+  }, [isLoading]);
+
+  if (isLoading) return null;
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName: keyof typeof Ionicons.glyphMap;
-
-            if (route.name === "Archive") {
-              iconName = focused ? "library" : "library-outline";
-            } else if (route.name === "Meditations") {
-              iconName = focused ? "book" : "book-outline";
-            } else if (route.name === "Profile") {
-              iconName = focused ? "person-circle" : "person-circle-outline";
-            } else {
-              iconName = "ellipse";
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: AppColors.tabBarActiveColor,
-          tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
-          tabBarStyle: {
-            height: 60,
-            paddingBottom: 8,
-            borderTopWidth: 0,
-            elevation: 8,
-          },
-          headerShown: false,
-        })}
+      <RootStack.Navigator
+        initialRouteName={isUserSetup ? "MainTab" : "Onboarding"}
+        screenOptions={{ headerShown: false }}
       >
-        <Tab.Screen name="Archive" component={ArchiveStackScreen} />
-        <Tab.Screen name="Meditations" component={MeditationsStackScreen} />
-        <Tab.Screen name="Profile" component={ProfileStackScreen} />
-      </Tab.Navigator>
+        {!isUserSetup && (
+          <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
+        )}
+        <RootStack.Screen name="MainTab" component={MainTabNavigator} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
