@@ -4,12 +4,14 @@ import { AppColors } from "constants/colors";
 import { ArchiveStackScreen } from "./ArchiveStack";
 import { MeditationsStackScreen } from "./MeditationsStack";
 import { ProfileStackScreen } from "./ProfileStack";
+import { TabParamList } from "types/navigation";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 export const MainTabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Archive"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: keyof typeof Ionicons.glyphMap;

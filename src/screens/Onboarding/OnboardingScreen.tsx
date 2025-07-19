@@ -58,7 +58,18 @@ export default function OnboardingScreen() {
       };
 
       await saveUserProfile(userProfile);
-      // navigation.navigate("MainApp");
+
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: "MainTab",
+            params: {
+              screen: "Archive",
+            },
+          },
+        ],
+      });
     } catch (error) {
       Alert.alert("Error", "Failed to save user profile. Please try again.", [
         { text: "OK" },
@@ -136,10 +147,13 @@ export const styles = StyleSheet.create({
     marginVertical: 30,
     textAlign: "center",
   },
-  inputContainer: { width: "100%", marginTop: 8 },
+  inputContainer: {
+    width: "100%",
+  },
   inputText: {
     color: AppColors.White,
     fontSize: 16,
+    marginBottom: 8,
   },
   input: {
     backgroundColor: AppColors.White,
@@ -147,12 +161,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    marginTop: 8,
   },
   errorText: {
     color: AppColors.Error,
     fontSize: 14,
-    marginTop: 8,
   },
   dateText: {
     color: AppColors.Black,

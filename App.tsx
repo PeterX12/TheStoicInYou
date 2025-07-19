@@ -1,11 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as SplashScreen from "expo-splash-screen";
 import { useUserSetup } from "hooks/useUserSetup";
 import { MainTabNavigator } from "navigation/MainTabNavigator";
 import { OnboardingStackScreen } from "navigation/OnboardingStack";
 import { useEffect } from "react";
+import { RootStackParamList } from "types/navigation";
 
 SplashScreen.preventAutoHideAsync();
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   const { isLoading, isUserSetup } = useUserSetup();
@@ -20,7 +24,16 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {!isUserSetup ? <OnboardingStackScreen /> : <MainTabNavigator />}
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        {!isUserSetup ? (
+          <RootStack.Screen
+            name="Onboarding"
+            component={OnboardingStackScreen}
+          />
+        ) : (
+          <RootStack.Screen name="MainTab" component={MainTabNavigator} />
+        )}
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
