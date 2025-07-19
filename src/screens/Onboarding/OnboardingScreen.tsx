@@ -11,12 +11,19 @@ import {
 import { StyleSheet } from "react-native";
 import DatePicker from "@components/DatePicker";
 import Button from "@components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { UserProfile } from "types/user";
 import { saveUserProfile } from "services/userService";
+import { RootStackParamList } from "types/navigation";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type OnboardingScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Onboarding"
+>;
 
 export default function OnboardingScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<OnboardingScreenNavigationProp>();
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [errors, setErrors] = useState({
@@ -59,17 +66,12 @@ export default function OnboardingScreen() {
 
       await saveUserProfile(userProfile);
 
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: "MainTab",
-            params: {
-              screen: "Archive",
-            },
-          },
-        ],
-      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "MainTab" }],
+        })
+      );
     } catch (error) {
       Alert.alert("Error", "Failed to save user profile. Please try again.", [
         { text: "OK" },

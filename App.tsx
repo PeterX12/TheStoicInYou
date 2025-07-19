@@ -1,9 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import OnboardingScreen from "@screens/Onboarding/OnboardingScreen";
 import * as SplashScreen from "expo-splash-screen";
 import { useUserSetup } from "hooks/useUserSetup";
 import { MainTabNavigator } from "navigation/MainTabNavigator";
-import { OnboardingStackScreen } from "navigation/OnboardingStack";
 import { useEffect } from "react";
 import { RootStackParamList } from "types/navigation";
 
@@ -24,15 +24,14 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        {!isUserSetup ? (
-          <RootStack.Screen
-            name="Onboarding"
-            component={OnboardingStackScreen}
-          />
-        ) : (
-          <RootStack.Screen name="MainTab" component={MainTabNavigator} />
+      <RootStack.Navigator
+        initialRouteName={isUserSetup ? "MainTab" : "Onboarding"}
+        screenOptions={{ headerShown: false }}
+      >
+        {!isUserSetup && (
+          <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
         )}
+        <RootStack.Screen name="MainTab" component={MainTabNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
