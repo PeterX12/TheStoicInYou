@@ -89,10 +89,10 @@ export default function OnboardingScreen() {
         Please enter your name and date of birth
       </Text>
 
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
         <Text style={styles.inputText}>Your Name</Text>
         <TextInput
-          style={[styles.input, errors.name && styles.errorText]}
+          style={styles.input}
           placeholder="Enter your full name"
           placeholderTextColor={AppColors.Black}
           value={name}
@@ -105,7 +105,7 @@ export default function OnboardingScreen() {
         {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
       </View>
 
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
         <DatePicker
           label="Date of Birth"
           value={birthDate}
@@ -118,12 +118,12 @@ export default function OnboardingScreen() {
         {errors.birthDate && (
           <Text style={styles.errorText}>{errors.birthDate}</Text>
         )}
-
-        <Button
-          text={isSubmitting ? "Saving..." : "Continue"}
-          onPress={handleSubmit}
-        />
       </View>
+
+      <Button
+        text={isSubmitting ? "Saving..." : "Continue"}
+        onPress={handleSubmit}
+      />
     </ScrollView>
   );
 }
@@ -165,6 +165,7 @@ export const styles = StyleSheet.create({
   errorText: {
     color: AppColors.Error,
     fontSize: 14,
+    marginTop: 8,
   },
   dateText: {
     color: AppColors.Black,

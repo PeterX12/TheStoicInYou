@@ -113,7 +113,6 @@ const DatePicker = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
     zIndex: 1,
     width: "100%",
   },
