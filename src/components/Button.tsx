@@ -26,13 +26,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.White,
     borderRadius: 8,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 16,
     width: "100%",
-    marginTop: 24,
-    height: 48,
   },
   buttonPressed: {
     opacity: 0.8,

@@ -105,7 +105,7 @@ export default function OnboardingScreen() {
         {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
       </View>
 
-      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
+      <View style={[styles.inputContainer, { marginBottom: 48 }]}>
         <DatePicker
           label="Date of Birth"
           value={birthDate}

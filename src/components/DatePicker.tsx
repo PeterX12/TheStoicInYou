@@ -124,9 +124,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: AppColors.White,
     borderRadius: 8,
-    padding: 12,
+    paddingHorizontal: 16,
     justifyContent: "center",
-    minHeight: 48,
+    paddingVertical: 12,
     width: "100%",
   },
   dateText: {
