@@ -56,7 +56,9 @@ const DatePicker = ({
       {label && <Text style={styles.inputText}>{label}</Text>}
 
       <Pressable style={styles.input} onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateText}>
+        <Text
+          style={[styles.dateText, !value && { color: AppColors.PlaceHolder }]}
+        >
           {value ? value.toLocaleDateString() : "Select your date of birth"}
         </Text>
       </Pressable>
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: AppColors.Error,
     fontSize: 14,
-    marginTop: 8,
+    marginTop: 4,
   },
   androidPickerContainer: {
     width: width * 0.9,

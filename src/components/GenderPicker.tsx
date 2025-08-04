@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: AppColors.Error,
     fontSize: 14,
-    marginTop: 4,
+    marginTop: 8,
   },
   modalOverlay: {
     flex: 1,

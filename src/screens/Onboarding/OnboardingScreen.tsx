@@ -100,7 +100,7 @@ export default function OnboardingScreen() {
         <TextInput
           style={styles.input}
           placeholder="Enter your full name"
-          placeholderTextColor={AppColors.Black}
+          placeholderTextColor={AppColors.PlaceHolder}
           value={name}
           onChangeText={(text) => {
             setName(text);
