@@ -6,7 +6,7 @@ type Gender = "male" | "female" | "other";
 
 interface GenderPickerProps {
   value: Gender | null;
-  onGenderChange: (gender: Gender) => void; // Changed to only accept non-null
+  onGenderChange: (gender: Gender) => void;
   label?: string;
   error?: string;
 }
