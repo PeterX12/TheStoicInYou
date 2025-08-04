@@ -79,8 +79,7 @@ const DatePicker = ({
       )}
       {/* Show date picker on iOS */}
       {showDatePicker && Platform.OS === "ios" && (
-        <View style={styles.iosPickerContainer}>
-          <Pressable style={styles.iosOverlay} onPress={handleCancel} />
+        <Pressable style={styles.iosOverlay} onPress={handleCancel}>
           <View style={styles.iosPickerWrapper}>
             <View style={styles.iosButtonContainer}>
               <Pressable onPress={handleCancel}>
@@ -92,7 +91,6 @@ const DatePicker = ({
                 </Text>
               </Pressable>
             </View>
-
             <DateTimePicker
               value={tempDate || new Date()}
               mode="date"
@@ -103,7 +101,7 @@ const DatePicker = ({
               maximumDate={maxDate}
             />
           </View>
-        </View>
+        </Pressable>
       )}
 
       {error && <Text style={styles.errorText}>{error}</Text>}
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
   },
   iosOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: AppColors.Black + "80",
+    justifyContent: "flex-end",
   },
   iosPickerWrapper: {
     backgroundColor: AppColors.White,

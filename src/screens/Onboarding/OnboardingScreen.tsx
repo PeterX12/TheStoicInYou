@@ -1,13 +1,6 @@
 import { AppColors } from "constants/colors";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, Text, TextInput, ScrollView, Alert } from "react-native";
 import { StyleSheet } from "react-native";
 import DatePicker from "@components/DatePicker";
 import Button from "@components/Button";
@@ -16,6 +9,7 @@ import { UserProfile } from "types/user";
 import { saveUserProfile } from "services/userService";
 import { RootStackParamList } from "types/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import GenderPicker from "@components/GenderPicker";
 
 type OnboardingScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -29,13 +23,18 @@ export default function OnboardingScreen() {
   const [errors, setErrors] = useState({
     name: "",
     birthDate: "",
+    gender: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [gender, setGender] = useState<"male" | "female" | "other" | null>(
+    null
+  );
 
   const validateForm = () => {
     const newErrors = {
       name: "",
       birthDate: "",
+      gender: "",
     };
 
     if (!name.trim()) {
@@ -50,6 +49,10 @@ export default function OnboardingScreen() {
       newErrors.birthDate = "Date of birth cannot be in the future";
     }
 
+    if (!gender) {
+      newErrors.gender = "Please select your gender";
+    }
+
     setErrors(newErrors);
     return !Object.values(newErrors).some((error) => error !== "");
   };
@@ -62,6 +65,7 @@ export default function OnboardingScreen() {
       const userProfile: UserProfile = {
         name: name.trim(),
         dateOfBirth: birthDate!.toISOString(),
+        gender: gender!,
       };
 
       await saveUserProfile(userProfile);
@@ -107,7 +111,7 @@ export default function OnboardingScreen() {
         {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
       </View>
 
-      <View style={[styles.inputContainer, { marginBottom: 48 }]}>
+      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
         <DatePicker
           label="Date of Birth"
           value={birthDate}
@@ -120,6 +124,18 @@ export default function OnboardingScreen() {
         {errors.birthDate && (
           <Text style={styles.errorText}>{errors.birthDate}</Text>
         )}
+      </View>
+
+      <View style={[styles.inputContainer, { marginBottom: 48 }]}>
+        <GenderPicker
+          value={gender}
+          onGenderChange={(selectedGender) => {
+            setGender(selectedGender);
+            setErrors((prev) => ({ ...prev, gender: "" }));
+          }}
+          label="Gender"
+          error={errors.gender}
+        />
       </View>
 
       <Button
