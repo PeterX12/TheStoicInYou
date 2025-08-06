@@ -57,7 +57,7 @@ const DatePicker = ({
       {label && <Text style={styles.inputText}>{label}</Text>}
 
       <Pressable style={styles.input} onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateText}>
+        <Text style={[styles.dateText, !value && styles.placeholderText]}>
           {value ? value.toLocaleDateString() : "Select your date of birth"}
         </Text>
       </Pressable>
@@ -140,6 +140,9 @@ const styles = StyleSheet.create({
     color: AppColors.Black,
     fontSize: 16,
     width: "100%",
+  },
+  placeholderText: {
+    color: AppColors.PlaceHolder,
   },
   errorText: {
     color: AppColors.Error,

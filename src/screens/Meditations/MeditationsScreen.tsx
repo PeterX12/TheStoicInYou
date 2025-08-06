@@ -1,11 +1,17 @@
+import AppBar from "@components/AppBar";
 import { AppStyles } from "constants/styles";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 export default function MeditationsScreen() {
   return (
-    <View style={AppStyles.fullScreen}>
-      <Text>Meditations Screen</Text>
+    <View style={{ flex: 1 }}>
+      <AppBar title={"Archive"} showBackButton={false} />
+      <ScrollView
+        contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
+      >
+        <Text>Meditations Screen</Text>
+      </ScrollView>
     </View>
   );
 }

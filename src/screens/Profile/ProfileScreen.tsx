@@ -1,11 +1,25 @@
+import AppBar from "@components/AppBar";
+import { Ionicons } from "@expo/vector-icons";
+import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 export default function ProfileScreen() {
   return (
-    <View style={AppStyles.fullScreen}>
-      <Text>Profile Screen</Text>
+    <View style={{ flex: 1 }}>
+      <AppBar
+        title={"Profile"}
+        showBackButton={false}
+        rightIcon={
+          <Ionicons name="settings-outline" size={24} color={AppColors.White} />
+        }
+      />
+      <ScrollView
+        contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
+      >
+        <Text>Profile Screen</Text>
+      </ScrollView>
     </View>
   );
 }
