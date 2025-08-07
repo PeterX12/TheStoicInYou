@@ -1,21 +1,31 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
 import { StyleSheet, Dimensions, View, Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { RootStackParamList } from "types/navigation";
 
 interface AppBarProps {
   title: string;
   showBackButton?: boolean;
   rightIcon?: React.ReactNode;
+  onRightIconPress?: () => void;
 }
 
-const AppBar = ({ title, showBackButton = false, rightIcon }: AppBarProps) => {
+const AppBar = ({
+  title,
+  showBackButton = false,
+  rightIcon,
+  onRightIconPress,
+}: AppBarProps) => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View
+      style={[styles.container, { paddingTop: insets.top }]}
+      accessibilityRole="header"
+    >
       <View style={styles.content}>
         {showBackButton && (
           <Pressable
@@ -36,7 +46,12 @@ const AppBar = ({ title, showBackButton = false, rightIcon }: AppBarProps) => {
         </Text>
 
         {rightIcon && (
-          <View style={styles.rightIconContainer}>{rightIcon}</View>
+          <Pressable
+            onPress={onRightIconPress}
+            style={styles.rightIconContainer}
+          >
+            {rightIcon}
+          </Pressable>
         )}
       </View>
     </View>
