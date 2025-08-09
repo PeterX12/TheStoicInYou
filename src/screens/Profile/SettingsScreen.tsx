@@ -1,6 +1,7 @@
 import AppBar from "@components/AppBar";
 import { AppStyles } from "constants/styles";
-import { ScrollView, View, Text } from "react-native";
+import React from "react";
+import { ScrollView, View, Text, TextInput } from "react-native";
 
 export default function SettingsScreen() {
   return (
@@ -9,7 +10,10 @@ export default function SettingsScreen() {
       <ScrollView
         contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
       >
-        <Text>Settings Screen</Text>
+        <View>
+          <Text>Your Name</Text>
+          <TextInput placeholder="hi" />
+        </View>
       </ScrollView>
     </View>
   );

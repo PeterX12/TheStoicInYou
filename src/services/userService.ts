@@ -7,7 +7,7 @@ export const saveUserProfile = async (data: UserProfile): Promise<boolean> => {
     return true;
   } catch (error) {
     console.error("Error saving user profile:", error);
-    throw new Error("Failed to save user profile");
+    throw error;
   }
 };
 
@@ -17,6 +17,15 @@ export const getUserProfile = async (): Promise<UserProfile | null> => {
     return userData ? JSON.parse(userData) : null;
   } catch (error) {
     console.error("Error retrieving user profile:", error);
-    throw new Error("Failed to load user profile");
+    throw error;
+  }
+};
+
+export const clearUserData = async (): Promise<void> => {
+  try {
+    await AsyncStorage.removeItem("@user_profile");
+  } catch (error) {
+    console.error("Error clearing user data:", error);
+    throw error;
   }
 };
