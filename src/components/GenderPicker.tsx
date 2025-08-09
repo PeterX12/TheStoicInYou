@@ -40,7 +40,7 @@ const GenderPicker = ({
       {label && <Text style={styles.inputText}>{label}</Text>}
 
       <Pressable
-        style={[styles.input, error ? styles.inputError : null]}
+        style={styles.input}
         onPress={() => {
           setTempGender(value || "male");
           setShowModal(true);
@@ -110,10 +110,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
-  },
-  inputError: {
-    borderWidth: 1,
-    borderColor: AppColors.Error,
   },
   genderText: {
     color: AppColors.Black,

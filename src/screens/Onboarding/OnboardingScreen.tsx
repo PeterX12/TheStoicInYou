@@ -10,6 +10,7 @@ import { saveUserProfile } from "services/userService";
 import { RootStackParamList } from "types/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import GenderPicker from "@components/GenderPicker";
+import { AppStyles } from "constants/styles";
 
 type OnboardingScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -87,7 +88,7 @@ export default function OnboardingScreen() {
 
   return (
     <ScrollView
-      contentContainerStyle={styles.container}
+      contentContainerStyle={AppStyles.buttonContainer}
       keyboardShouldPersistTaps="handled"
     >
       <Text style={styles.title}>Welcome to the{"\n"} Stoic in You</Text>
@@ -95,10 +96,10 @@ export default function OnboardingScreen() {
         Please enter your name and date of birth
       </Text>
 
-      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
-        <Text style={styles.inputText}>Your Name</Text>
+      <View style={[AppStyles.inputContainer, { marginBottom: 24 }]}>
+        <Text style={AppStyles.inputText}>Your Name</Text>
         <TextInput
-          style={styles.input}
+          style={AppStyles.input}
           placeholder="Enter your full name"
           placeholderTextColor={AppColors.PlaceHolder}
           value={name}
@@ -108,10 +109,12 @@ export default function OnboardingScreen() {
           }}
           autoCapitalize="words"
         />
-        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+        {errors.name && (
+          <Text style={AppStyles.inputErrorText}>{errors.name}</Text>
+        )}
       </View>
 
-      <View style={[styles.inputContainer, { marginBottom: 24 }]}>
+      <View style={[AppStyles.inputContainer, { marginBottom: 24 }]}>
         <DatePicker
           label="Date of Birth"
           value={birthDate}
@@ -122,11 +125,11 @@ export default function OnboardingScreen() {
           maxDate={new Date()}
         />
         {errors.birthDate && (
-          <Text style={styles.errorText}>{errors.birthDate}</Text>
+          <Text style={AppStyles.inputErrorText}>{errors.birthDate}</Text>
         )}
       </View>
 
-      <View style={[styles.inputContainer, { marginBottom: 48 }]}>
+      <View style={[AppStyles.inputContainer, { marginBottom: 48 }]}>
         <GenderPicker
           value={gender}
           onGenderChange={(selectedGender) => {
@@ -147,13 +150,6 @@ export default function OnboardingScreen() {
 }
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: AppColors.AppBackground,
-    paddingHorizontal: 76,
-  },
   title: {
     color: AppColors.White,
     fontSize: 24,
@@ -164,29 +160,5 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 30,
     textAlign: "center",
-  },
-  inputContainer: {
-    width: "100%",
-  },
-  inputText: {
-    color: AppColors.White,
-    fontSize: 16,
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: AppColors.White,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 16,
-  },
-  errorText: {
-    color: AppColors.Error,
-    fontSize: 14,
-    marginTop: 8,
-  },
-  dateText: {
-    color: AppColors.Black,
-    fontSize: 16,
   },
 });
