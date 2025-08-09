@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingScreen from "@screens/Onboarding/OnboardingScreen";
 import * as SplashScreen from "expo-splash-screen";
-import { useUserSetup } from "hooks/useUserSetup";
+import { useUserProfile } from "hooks/useUserProfile";
 import { MainTabNavigator } from "navigation/MainTabNavigator";
 import { useEffect } from "react";
 import { RootStackParamList } from "types/navigation";
@@ -12,7 +12,7 @@ SplashScreen.preventAutoHideAsync();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const { isLoading, isUserSetup } = useUserSetup();
+  const { isLoading, isUserSetup } = useUserProfile();
 
   useEffect(() => {
     if (!isLoading) {

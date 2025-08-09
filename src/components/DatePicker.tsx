@@ -7,10 +7,11 @@ import {
   Text,
   Pressable,
   Dimensions,
+  Modal,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 interface DatePickerProps {
   label?: string;
@@ -56,12 +57,12 @@ const DatePicker = ({
       {label && <Text style={styles.inputText}>{label}</Text>}
 
       <Pressable style={styles.input} onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateText}>
+        <Text style={[styles.dateText, !value && styles.placeholderText]}>
           {value ? value.toLocaleDateString() : "Select your date of birth"}
         </Text>
       </Pressable>
 
-      {/* Show date picker on Android */}
+      {/* Android Picker */}
       {showDatePicker && Platform.OS === "android" && (
         <View style={styles.androidPickerContainer}>
           <DateTimePicker
@@ -77,34 +78,40 @@ const DatePicker = ({
           />
         </View>
       )}
-      {/* Show date picker on iOS */}
-      {showDatePicker && Platform.OS === "ios" && (
-        <View style={styles.iosPickerContainer}>
-          <Pressable style={styles.iosOverlay} onPress={handleCancel} />
-          <View style={styles.iosPickerWrapper}>
-            <View style={styles.iosButtonContainer}>
-              <Pressable onPress={handleCancel}>
-                <Text style={styles.iosButton}>Cancel</Text>
-              </Pressable>
-              <Pressable onPress={handleConfirm}>
-                <Text style={[styles.iosButton, styles.iosButtonConfirm]}>
-                  Done
-                </Text>
-              </Pressable>
-            </View>
 
-            <DateTimePicker
-              value={tempDate || new Date()}
-              mode="date"
-              display="spinner"
-              onChange={handleDateChange}
-              style={styles.iosPicker}
-              minimumDate={minDate}
-              maximumDate={maxDate}
-            />
+      {/* iOS/Web Picker - Now using Modal for center positioning */}
+      <Modal
+        visible={showDatePicker && Platform.OS !== "android"}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={handleCancel}
+      >
+        <Pressable style={styles.modalOverlay} onPress={handleCancel}>
+          <View style={styles.modalContent}>
+            <View style={styles.pickerContainer}>
+              <View style={styles.buttonContainer}>
+                <Pressable onPress={handleCancel}>
+                  <Text style={styles.button}>Cancel</Text>
+                </Pressable>
+                <Pressable onPress={handleConfirm}>
+                  <Text style={[styles.button, styles.confirmButton]}>
+                    Done
+                  </Text>
+                </Pressable>
+              </View>
+              <DateTimePicker
+                value={tempDate || new Date()}
+                mode="date"
+                display="spinner"
+                onChange={handleDateChange}
+                style={styles.picker}
+                minimumDate={minDate}
+                maximumDate={maxDate}
+              />
+            </View>
           </View>
-        </View>
-      )}
+        </Pressable>
+      </Modal>
 
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
@@ -134,6 +141,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: "100%",
   },
+  placeholderText: {
+    color: AppColors.PlaceHolder,
+  },
   errorText: {
     color: AppColors.Error,
     fontSize: 14,
@@ -148,47 +158,40 @@ const styles = StyleSheet.create({
     height: 180,
     width: "100%",
   },
-  iosPickerContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "flex-end",
-    zIndex: 10,
-  },
-  iosOverlay: {
-    ...StyleSheet.absoluteFillObject,
+  modalOverlay: {
+    flex: 1,
     backgroundColor: AppColors.Black + "80",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  iosPickerWrapper: {
+  modalContent: {
+    width: width * 0.9,
     backgroundColor: AppColors.White,
     borderRadius: 16,
-    margin: 20,
+    overflow: "hidden",
+  },
+  pickerContainer: {
     padding: 16,
-    maxHeight: 400,
-    width: width * 0.9,
-    alignSelf: "center",
   },
-  iosPicker: {
-    height: 300,
-    width: "100%",
-  },
-  iosButtonContainer: {
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: AppColors.Black,
   },
-  iosButton: {
+  button: {
     fontSize: 16,
     color: AppColors.Black,
     padding: 8,
   },
-  iosButtonConfirm: {
-    color: AppColors.Black,
+  confirmButton: {
     fontWeight: "bold",
+    color: AppColors.Black,
+  },
+  picker: {
+    height: 200,
+    width: "100%",
   },
 });
 
