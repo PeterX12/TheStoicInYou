@@ -6,11 +6,11 @@ import DatePicker from "@components/DatePicker";
 import Button from "@components/Button";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { UserProfile } from "types/user";
-import { saveUserProfile } from "services/userService";
 import { RootStackParamList } from "types/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import GenderPicker from "@components/GenderPicker";
 import { AppStyles } from "constants/styles";
+import { useUserProfile } from "hooks/useUserProfile";
 
 type OnboardingScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -30,6 +30,7 @@ export default function OnboardingScreen() {
   const [gender, setGender] = useState<"male" | "female" | "other" | null>(
     null
   );
+  const { updateProfile } = useUserProfile();
 
   const validateForm = () => {
     const newErrors = {
@@ -69,7 +70,7 @@ export default function OnboardingScreen() {
         gender: gender!,
       };
 
-      await saveUserProfile(userProfile);
+      await updateProfile(userProfile);
 
       navigation.dispatch(
         CommonActions.reset({
@@ -92,9 +93,7 @@ export default function OnboardingScreen() {
       keyboardShouldPersistTaps="handled"
     >
       <Text style={styles.title}>Welcome to the{"\n"} Stoic in You</Text>
-      <Text style={styles.subtitle}>
-        Please enter your name and date of birth
-      </Text>
+      <Text style={styles.subtitle}>Please enter your details below</Text>
 
       <View style={[AppStyles.inputContainer, { marginBottom: 24 }]}>
         <Text style={AppStyles.inputText}>Your Name</Text>
