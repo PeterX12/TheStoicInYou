@@ -1,4 +1,5 @@
 import AppBar from "@components/AppBar";
+import HourglassIcon from "@components/icons/HourglassIcon";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
@@ -21,6 +22,7 @@ export default function ProfileScreen() {
       <ScrollView
         contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
       >
+        <HourglassIcon />
         <Text>Profile Screen</Text>
       </ScrollView>
     </View>
