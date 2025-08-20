@@ -17,8 +17,12 @@ const InfoModal = ({ isVisible, onClose, content }: InfoModalProps) => {
       animationType="fade"
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
-        <View style={styles.modalContent}>
+      <Pressable style={styles.overlay} onPress={onClose}>
+        <View
+          style={styles.modalContent}
+          // Prevent closing when clicking inside the modal
+          onStartShouldSetResponder={() => true}
+        >
           <View style={styles.iconRow}>
             <View style={styles.centerIcon}>
               <Ionicons
@@ -37,7 +41,7 @@ const InfoModal = ({ isVisible, onClose, content }: InfoModalProps) => {
           </View>
           <Text style={styles.content}>{content}</Text>
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };
