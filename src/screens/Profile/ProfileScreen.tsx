@@ -25,12 +25,18 @@ export default function ProfileScreen() {
         onRightIconPress={() => navigation.navigate("Settings")}
       />
       <ScrollView
-        contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
+        contentContainerStyle={[
+          AppStyles.fullScreen,
+          { padding: 0, paddingHorizontal: 16 },
+        ]}
       >
         <HourglassIcon size={250} />
 
-        <Text style={styles.mori}>Memento Mori. You must die.</Text>
-        <Text style={styles.vivere}>Memento Vivere. You must live.</Text>
+        <Text style={styles.mori}>Memento Mori.</Text>
+        <Text style={styles.translationText}>Remember you must die.</Text>
+
+        <Text style={styles.mori}>Memento Vivere.</Text>
+        <Text style={styles.vivere}>Remember to live.</Text>
         <Text style={styles.intro}>
           {" "}
           Here’s a reminder of the time you have to live fully:
@@ -44,10 +50,8 @@ export default function ProfileScreen() {
           />
         </Pressable>
 
-        <Text style={styles.countdown}>
-          Your time: 72 years, 11 months, 54 days
-        </Text>
-        <Text style={styles.quote}>Today matters</Text>
+        <Text style={styles.countdown}>72 years, 11 months, 54 days</Text>
+        <Text style={styles.quote}>Today matters. Don't waste it.</Text>
 
         <InfoModal
           isVisible={isModalVisible}
@@ -72,6 +76,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: AppColors.White,
     marginBottom: 16,
+    textAlign: "center",
+  },
+  translationText: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: AppColors.White,
     textAlign: "center",
   },
   intro: {
