@@ -1,6 +1,6 @@
 export const Strings = {
   MODAL: {
     timerInfoText:
-      "Your remaining time is based on average life expectancy. This number is only an estimate, life can be shorter or longer. Its purpose is not to predict your death, but to remind you to live with intention today.",
+      "This countdown uses average life expectancy figures by country and gender, based on data from WorldData.info. It’s only an estimate, not a prediction. The purpose is to remind you that life is finite, and to inspire you to use your time wisely.",
   },
 };
