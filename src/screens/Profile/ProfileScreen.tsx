@@ -1,5 +1,4 @@
 import AppBar from "@components/AppBar";
-import Button from "@components/Button";
 import HourglassIcon from "@components/icons/HourglassIcon";
 import InfoModal from "@components/InfoModal";
 import { Ionicons } from "@expo/vector-icons";
