@@ -17,7 +17,7 @@ export interface LifeExpectancyResult {
 
 export const calculateLifeExpectancy = async (
   dateOfBirth: string,
-  gender: "male" | "female" | "other"
+  gender?: "male" | "female" | "other"
 ): Promise<LifeExpectancyResult> => {
   try {
     let countryCode: string = "GLOBAL";

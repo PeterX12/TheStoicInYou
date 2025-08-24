@@ -6,11 +6,27 @@ import { useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
 import { Strings } from "constants/strings";
 import { AppStyles } from "constants/styles";
+import { useLifeExpectancy } from "hooks/useLifeExpectancy";
+import { useUserProfile } from "hooks/useUserProfile";
 import React, { useState } from "react";
-import { View, Text, ScrollView, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import { formatTimeRemaining } from "utils/lifeExpectancy";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
+  const { userProfile } = useUserProfile();
+  const {
+    result: lifeExpectancy,
+    loading,
+    error,
+  } = useLifeExpectancy(userProfile);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
@@ -29,29 +45,48 @@ export default function ProfileScreen() {
           { padding: 0, paddingHorizontal: 16 },
         ]}
       >
-        <HourglassIcon size={250} />
+        <HourglassIcon size={220} />
+        <View style={styles.section}>
+          <Text style={styles.latinText}>Memento Mori.</Text>
+          <Text style={styles.translationText}>Remember you must die.</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.latinText}>Memento Vivere.</Text>
+          <Text style={styles.translationText}>Remember to live.</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.introText}>
+            {" "}
+            Here’s a reminder of the time you have to live fully:
+          </Text>
 
-        <Text style={styles.mori}>Memento Mori.</Text>
-        <Text style={styles.translationText}>Remember you must die.</Text>
-
-        <Text style={styles.mori}>Memento Vivere.</Text>
-        <Text style={styles.vivere}>Remember to live.</Text>
-        <Text style={styles.intro}>
-          {" "}
-          Here’s a reminder of the time you have to live fully:
-        </Text>
-
-        <Pressable onPress={() => setIsModalVisible(!isModalVisible)}>
-          <Ionicons
-            name="information-circle-outline"
-            size={24}
-            color={AppColors.White}
-          />
-        </Pressable>
-
-        <Text style={styles.countdown}>72 years, 11 months, 54 days</Text>
-        <Text style={styles.quote}>Today matters. Don't waste it.</Text>
-
+          <Pressable onPress={() => setIsModalVisible(!isModalVisible)}>
+            <Ionicons
+              name="information-circle-outline"
+              size={24}
+              color={AppColors.White}
+            />
+          </Pressable>
+        </View>
+        {loading ? (
+          <ActivityIndicator color={AppColors.White} size="large" />
+        ) : error ? (
+          <Text style={styles.errorText}>{error}</Text>
+        ) : lifeExpectancy ? (
+          <View style={styles.section}>
+            <Text style={styles.countdownText}>
+              {formatTimeRemaining(lifeExpectancy.timeRemaining)}
+            </Text>
+          </View>
+        ) : (
+          <Text style={styles.introText}>
+            Complete your profile to see your time
+          </Text>
+        )}
+        ;
+        <View style={styles.section}>
+          <Text style={styles.finalQuote}>Today matters.</Text>
+        </View>
         <InfoModal
           isVisible={isModalVisible}
           content={Strings.MODAL.timerInfoText}
@@ -70,38 +105,55 @@ const styles = StyleSheet.create({
     marginTop: 16,
     textAlign: "center",
   },
-  vivere: {
-    fontSize: 20,
+  section: {
+    alignItems: "center",
+    marginBottom: 24,
+    width: "100%",
+  },
+  latinText: {
+    fontSize: 22,
     fontWeight: "600",
     color: AppColors.White,
-    marginBottom: 16,
     textAlign: "center",
+    letterSpacing: 0.5,
   },
   translationText: {
-    fontSize: 20,
-    fontWeight: "600",
+    fontSize: 16,
     color: AppColors.White,
     textAlign: "center",
+    opacity: 0.9,
+    marginTop: 4,
+    fontStyle: "italic",
   },
-  intro: {
+  introText: {
     fontSize: 16,
     color: AppColors.White,
     textAlign: "center",
     marginBottom: 16,
     fontStyle: "italic",
   },
-  countdown: {
+  countdownText: {
     fontSize: 26,
     fontWeight: "700",
     textAlign: "center",
     color: AppColors.White,
-    marginVertical: 12,
+    marginVertical: 8,
   },
-  quote: {
+  finalQuote: {
     fontSize: 16,
     color: AppColors.White,
     textAlign: "center",
-    marginTop: 8,
     fontStyle: "italic",
+    opacity: 0.9,
+    marginTop: 16,
+  },
+  infoButton: {
+    padding: 4,
+    alignSelf: "center",
+  },
+  errorText: {
+    color: AppColors.Error,
+    textAlign: "center",
+    marginVertical: 16,
   },
 });
