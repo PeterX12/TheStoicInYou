@@ -46,10 +46,12 @@ export default function ProfileScreen() {
         ]}
       >
         <HourglassIcon size={240} />
+
         <View style={[styles.section, { marginTop: 16 }]}>
           <Text style={styles.latinText}>Memento Mori.</Text>
           <Text style={styles.translationText}>Remember you must die.</Text>
         </View>
+
         <View style={styles.section}>
           <Text style={styles.latinText}>Memento Vivere.</Text>
           <Text style={styles.translationText}>Remember to live.</Text>
@@ -88,6 +90,7 @@ export default function ProfileScreen() {
         <View style={styles.section}>
           <Text style={styles.finalQuote}>Today matters.</Text>
         </View>
+
         <InfoModal
           isVisible={isModalVisible}
           content={Strings.MODAL.timerInfoText}
