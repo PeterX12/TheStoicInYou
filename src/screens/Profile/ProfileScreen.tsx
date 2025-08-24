@@ -45,8 +45,8 @@ export default function ProfileScreen() {
           { padding: 0, paddingHorizontal: 16 },
         ]}
       >
-        <HourglassIcon size={220} />
-        <View style={styles.section}>
+        <HourglassIcon size={240} />
+        <View style={[styles.section, { marginTop: 16 }]}>
           <Text style={styles.latinText}>Memento Mori.</Text>
           <Text style={styles.translationText}>Remember you must die.</Text>
         </View>
@@ -54,7 +54,8 @@ export default function ProfileScreen() {
           <Text style={styles.latinText}>Memento Vivere.</Text>
           <Text style={styles.translationText}>Remember to live.</Text>
         </View>
-        <View style={styles.section}>
+
+        <View style={styles.infoIconSection}>
           <Text style={styles.introText}>
             {" "}
             Here’s a reminder of the time you have to live fully:
@@ -83,7 +84,7 @@ export default function ProfileScreen() {
             Complete your profile to see your time
           </Text>
         )}
-        ;
+
         <View style={styles.section}>
           <Text style={styles.finalQuote}>Today matters.</Text>
         </View>
@@ -108,6 +109,10 @@ const styles = StyleSheet.create({
   section: {
     alignItems: "center",
     marginBottom: 24,
+    width: "100%",
+  },
+  infoIconSection: {
+    alignItems: "center",
     width: "100%",
   },
   latinText: {
@@ -137,7 +142,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     color: AppColors.White,
-    marginVertical: 8,
   },
   finalQuote: {
     fontSize: 16,
@@ -145,11 +149,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontStyle: "italic",
     opacity: 0.9,
-    marginTop: 16,
   },
   infoButton: {
     padding: 4,
-    alignSelf: "center",
   },
   errorText: {
     color: AppColors.Error,
