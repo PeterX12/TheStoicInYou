@@ -2,13 +2,14 @@ import AppBar from "@components/AppBar";
 import HourglassIcon from "@components/icons/HourglassIcon";
 import InfoModal from "@components/InfoModal";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
+import { getRandomProfileQuote } from "constants/profileQuotes";
 import { Strings } from "constants/strings";
 import { AppStyles } from "constants/styles";
 import { useLifeExpectancy } from "hooks/useLifeExpectancy";
 import { useUserProfile } from "hooks/useUserProfile";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -28,6 +29,13 @@ export default function ProfileScreen() {
     error,
   } = useLifeExpectancy(userProfile);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [randomProfileQuote, setRandomProfileQuote] = useState<string>("");
+
+  useFocusEffect(
+    useCallback(() => {
+      setRandomProfileQuote(getRandomProfileQuote());
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -87,9 +95,11 @@ export default function ProfileScreen() {
           </Text>
         )}
 
-        <View style={styles.section}>
-          <Text style={styles.finalQuote}>Today matters.</Text>
-        </View>
+        {randomProfileQuote && (
+          <View style={styles.section}>
+            <Text style={styles.finalQuote}>{randomProfileQuote}</Text>
+          </View>
+        )}
 
         <InfoModal
           isVisible={isModalVisible}
