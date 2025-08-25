@@ -2,6 +2,7 @@ import AppBar from "@components/AppBar";
 import Button from "@components/Button";
 import DatePicker from "@components/DatePicker";
 import GenderPicker from "@components/GenderPicker";
+import { useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
 import { useUserProfile } from "hooks/useUserProfile";
@@ -22,6 +23,7 @@ export default function SettingsScreen() {
     null
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (userProfile?.dateOfBirth) {
@@ -81,6 +83,8 @@ export default function SettingsScreen() {
       };
 
       await updateProfile(profile);
+
+      navigation.goBack();
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
