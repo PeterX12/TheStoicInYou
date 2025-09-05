@@ -7,22 +7,22 @@ export const useUserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const userData = await AsyncStorage.getItem("@user_profile");
-        if (userData) {
-          const parsedData: UserProfile = JSON.parse(userData);
-          setUserProfile(parsedData);
-        }
-      } catch (error) {
-        console.error("Error loading user profile:", error);
-        setIsLoading(true);
-      } finally {
-        setIsLoading(false);
+  const loadProfile = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("@user_profile");
+      if (userData) {
+        const parsedData: UserProfile = JSON.parse(userData);
+        setUserProfile(parsedData);
       }
-    };
+    } catch (error) {
+      console.error("Error loading user profile:", error);
+      setIsLoading(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadProfile();
   }, []);
 
@@ -30,6 +30,7 @@ export const useUserProfile = () => {
     setIsLoading(true);
     try {
       await saveUserProfile(profile);
+      setUserProfile(profile); // Update local state after saving
     } catch (error) {
       console.error("Error saving user profile:", error);
     } finally {
@@ -54,5 +55,6 @@ export const useUserProfile = () => {
     userProfile,
     updateProfile,
     logout,
+    refreshProfile: loadProfile,
   };
 };
