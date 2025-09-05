@@ -9,7 +9,7 @@ import { Strings } from "constants/strings";
 import { AppStyles } from "constants/styles";
 import { useLifeExpectancy } from "hooks/useLifeExpectancy";
 import { useUserProfile } from "hooks/useUserProfile";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -22,7 +22,7 @@ import { formatTimeRemaining } from "utils/lifeExpectancy";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
-  const { userProfile } = useUserProfile();
+  const { userProfile, refreshProfile } = useUserProfile();
   const {
     result: lifeExpectancy,
     loading,
@@ -35,6 +35,12 @@ export default function ProfileScreen() {
     useCallback(() => {
       setRandomProfileQuote(getRandomProfileQuote());
     }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      refreshProfile();
+    }, [refreshProfile])
   );
 
   return (
