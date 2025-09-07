@@ -82,13 +82,11 @@ export const formatTimeRemaining = (time: TimeRemaining): string => {
     return "Today is your day to live fully";
   }
 
-  const parts = [];
-  if (time.years > 0)
-    parts.push(`${time.years} year${time.years !== 1 ? "s" : ""}`);
-  if (time.months > 0)
-    parts.push(`${time.months} month${time.months !== 1 ? "s" : ""}`);
-  if (time.days > 0)
-    parts.push(`${time.days} day${time.days !== 1 ? "s" : ""}`);
+  const parts = [
+    `${time.years} year${time.years !== 1 ? "s" : ""}`,
+    `${time.months} month${time.months !== 1 ? "s" : ""}`,
+    `${time.days} day${time.days !== 1 ? "s" : ""}`,
+  ];
 
-  return parts.join(", ") || "Less than a day";
+  return parts.join(", ");
 };
