@@ -1,17 +1,46 @@
 import AppBar from "@components/AppBar";
+import ImageWithText from "@components/ImageWithText";
+import { useNavigation } from "@react-navigation/native";
 import { AppStyles } from "constants/styles";
+import { philosophers } from "data";
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 export default function ArchiveScreen() {
+  const navigation = useNavigation();
+
+  const handleFramePress = (id: string) => {};
+
   return (
     <View style={{ flex: 1 }}>
       <AppBar title={"Archive"} showBackButton={false} />
       <ScrollView
         contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
       >
-        <Text>Archive Screen</Text>
+        <View style={styles.gridContainer}>
+          {philosophers.map((philosopher) => (
+            <ImageWithText
+              key={philosopher.id}
+              imageSource={philosopher.image}
+              text={philosopher.name}
+              onPress={() => handleFramePress(philosopher.id)}
+              containerStyle={styles.item}
+            />
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  gridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  item: {
+    width: "48%",
+    marginBottom: 24,
+  },
+});
