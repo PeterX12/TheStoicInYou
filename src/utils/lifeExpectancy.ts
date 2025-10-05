@@ -54,11 +54,12 @@ export const calculateLifeExpectancy = async (
     const daysLived = Math.floor(
       (today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    const daysRemaining = Math.max(0, totalDaysInLife - daysLived);
+    const daysRemaining = Math.max(0, Math.floor(totalDaysInLife - daysLived));
 
     const years = Math.floor(daysRemaining / 365);
-    const months = Math.floor((daysRemaining % 365) / 30);
-    const days = daysRemaining % 30;
+    const remainingAfterYears = daysRemaining % 365;
+    const months = Math.floor(remainingAfterYears / 30);
+    const days = Math.floor(remainingAfterYears % 30);
 
     return {
       timeRemaining: {

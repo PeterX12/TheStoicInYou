@@ -1,4 +1,5 @@
 import AppBar from "@components/AppBar";
+import Button from "@components/Button";
 import ImageWithText from "@components/ImageWithText";
 import { useNavigation } from "@react-navigation/native";
 import { AppStyles } from "constants/styles";
@@ -28,6 +29,14 @@ export default function ArchiveScreen() {
             />
           ))}
         </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            text="Books"
+            onPress={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -42,5 +51,10 @@ const styles = StyleSheet.create({
   item: {
     width: "48%",
     marginBottom: 24,
+  },
+  buttonContainer: {
+    width: "100%",
+    paddingHorizontal: 76,
+    paddingTop: 24,
   },
 });

@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     textAlign: "center",
-    color: "#333",
+    color: AppColors.White,
   },
   icon: {
-    marginLeft: 12,
+    marginLeft: 4,
   },
 });
 
