@@ -10,7 +10,11 @@ import { View, StyleSheet, ScrollView } from "react-native";
 export default function ArchiveScreen() {
   const navigation = useNavigation();
 
-  const handleFramePress = (id: string) => {};
+  const handleFramePress = (id: string) => {
+    navigation.navigate("Quotes", { philosopherId: id });
+  };
+
+  const handleBooksPress = () => {};
 
   return (
     <View style={{ flex: 1 }}>
@@ -30,12 +34,7 @@ export default function ArchiveScreen() {
           ))}
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            text="Books"
-            onPress={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
+          <Button text="Books" onPress={handleBooksPress} />
         </View>
       </ScrollView>
     </View>

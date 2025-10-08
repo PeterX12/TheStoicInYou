@@ -4,6 +4,9 @@ export type RootStackParamList = {
   Onboarding: undefined;
   MainTab: NavigatorScreenParams<TabParamList>;
   Settings: undefined;
+  Quotes: {
+    philosopherId: string;
+  };
 };
 
 export type TabParamList = {
