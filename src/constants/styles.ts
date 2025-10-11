@@ -16,6 +16,12 @@ export const AppStyles = StyleSheet.create({
     backgroundColor: AppColors.AppBackground,
     paddingHorizontal: 76,
   },
+  contentContainer: {
+    flex: 1,
+    backgroundColor: AppColors.AppBackground,
+    width: "100%",
+    alignItems: "flex-start",
+  },
 
   //Inputs
   inputText: {

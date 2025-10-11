@@ -20,7 +20,10 @@ export default function ArchiveScreen() {
     <View style={{ flex: 1 }}>
       <AppBar title={"Archive"} showBackButton={false} />
       <ScrollView
-        contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}
+        contentContainerStyle={[
+          AppStyles.contentContainer,
+          { padding: 0, alignItems: "flex-start" },
+        ]}
       >
         <View style={styles.gridContainer}>
           {philosophers.map((philosopher) => (
@@ -46,6 +49,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    paddingTop: 48,
+    paddingHorizontal: 16,
+    width: "100%",
   },
   item: {
     width: "48%",
@@ -54,6 +60,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     paddingHorizontal: 76,
-    paddingTop: 24,
+    paddingTop: 130,
   },
 });
