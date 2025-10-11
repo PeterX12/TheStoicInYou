@@ -21,6 +21,7 @@ export const AppStyles = StyleSheet.create({
     backgroundColor: AppColors.AppBackground,
     width: "100%",
     alignItems: "flex-start",
+    paddingHorizontal: 16,
   },
 
   //Inputs
