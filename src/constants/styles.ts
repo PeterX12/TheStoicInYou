@@ -20,8 +20,9 @@ export const AppStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: AppColors.AppBackground,
     width: "100%",
-    alignItems: "flex-start",
+    alignItems: "center",
     paddingHorizontal: 16,
+    paddingTop: 48,
   },
 
   //Inputs
