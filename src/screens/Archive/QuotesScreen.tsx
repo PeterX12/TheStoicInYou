@@ -32,7 +32,7 @@ export default function QuotesScreen() {
       const randomIndex = Math.floor(Math.random() * philosopher.quotes.length);
       setCurrentQuoteIndex(randomIndex);
     }
-  }, [[philosopher]]);
+  }, [philosopher?.id]);
 
   const navigateQuotes = (direction: "next" | "prev") => {
     if (!philosopher?.quotes.length) return;
