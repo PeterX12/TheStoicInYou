@@ -93,7 +93,7 @@ export default function SettingsScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Settings"} showBackButton={true} />
       <ScrollView contentContainerStyle={AppStyles.buttonContainer}>
         <View style={[AppStyles.inputContainer, { marginBottom: 24 }]}>

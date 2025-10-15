@@ -48,9 +48,12 @@ export default function QuotesScreen() {
 
   if (philosopher) {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={AppStyles.scrollViewContainer}>
         <AppBar title={philosopher?.name} showBackButton={true} />
-        <ScrollView contentContainerStyle={AppStyles.contentContainer}>
+        <ScrollView
+          contentContainerStyle={AppStyles.contentContainer}
+          showsVerticalScrollIndicator={false}
+        >
           <Image source={philosopher?.quotesImage} />
           <Text style={styles.mainText}>{philosopher?.bio}</Text>
 
