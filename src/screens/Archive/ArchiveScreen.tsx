@@ -22,7 +22,7 @@ export default function ArchiveScreen() {
       <ScrollView
         contentContainerStyle={[
           AppStyles.contentContainer,
-          { padding: 0, alignItems: "flex-start" },
+          { padding: 48, alignItems: "flex-start" },
         ]}
       >
         <View style={styles.gridContainer}>

@@ -24,7 +24,6 @@ export const AppStyles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 48,
   },
 
   //Inputs
