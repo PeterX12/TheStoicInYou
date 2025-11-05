@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    paddingHorizontal: 76,
-    paddingTop: 130,
+    paddingHorizontal: 24,
+    paddingTop: 32,
   },
 });
