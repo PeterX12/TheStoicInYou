@@ -36,24 +36,32 @@ export default function QuotesTab({ philosopher }: QuotesTabProps) {
         "{philosopher.quotes[currentQuoteIndex]}"
       </Text>
 
+      {/* Add quote counter */}
+      <Text style={styles.quoteCounter}>
+        {currentQuoteIndex + 1} / {philosopher.quotes.length}
+      </Text>
+
       <View style={styles.quoteNavigation}>
         <TouchableOpacity
           onPress={() => navigateQuotes("prev")}
           style={styles.navButton}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Ionicons
             name="caret-back-outline"
-            size={24}
+            size={28}
             color={AppColors.White}
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => navigateQuotes("next")}
           style={styles.navButton}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Ionicons
             name="caret-forward-outline"
-            size={24}
+            size={28}
             color={AppColors.White}
           />
         </TouchableOpacity>
@@ -85,5 +93,11 @@ const styles = StyleSheet.create({
   },
   navButton: {
     padding: 8,
+  },
+  quoteCounter: {
+    color: AppColors.White,
+    fontSize: 14,
+    opacity: 0.7,
+    marginBottom: 20,
   },
 });

@@ -80,11 +80,16 @@ const styles = StyleSheet.create({
   },
   tabContainer: {
     flexDirection: "row",
+    marginHorizontal: 16,
+    marginVertical: 8,
+    borderRadius: 8,
+    padding: 4,
   },
   tab: {
     flex: 1,
     paddingVertical: 12,
     alignItems: "center",
+    borderRadius: 6,
   },
   activeTab: {
     borderBottomWidth: 2,

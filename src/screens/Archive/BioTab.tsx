@@ -13,17 +13,27 @@ export default function BioTab({ philosopher }: BioTabProps) {
       contentContainerStyle={[AppStyles.contentContainer, { paddingTop: 16 }]}
       showsVerticalScrollIndicator={false}
     >
-      <Image source={philosopher?.quotesImage} />
+      <Image
+        source={philosopher?.quotesImage}
+        style={styles.image}
+        resizeMode="contain"
+      />
       <Text style={styles.mainText}>{philosopher?.bio}</Text>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: "100%",
+    height: 340,
+    borderRadius: 8,
+  },
   mainText: {
     color: AppColors.White,
     fontSize: 16,
     paddingTop: 16,
+    lineHeight: 24,
     textAlign: "center",
   },
 });
