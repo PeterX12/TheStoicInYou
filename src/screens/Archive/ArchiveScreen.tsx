@@ -2,19 +2,23 @@ import AppBar from "@components/AppBar";
 import Button from "@components/Button";
 import ImageWithText from "@components/ImageWithText";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppStyles } from "constants/styles";
 import { philosophers } from "data";
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
+import { RootStackParamList } from "types/navigation";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function ArchiveScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const handleFramePress = (id: string) => {
     navigation.navigate("Quotes", { philosopherId: id });
   };
 
-  const handleBooksPress = () => {};
+  const handleItemPress = () => {};
 
   return (
     <View style={AppStyles.scrollViewContainer}>
@@ -37,7 +41,7 @@ export default function ArchiveScreen() {
           ))}
         </View>
         <View style={styles.buttonContainer}>
-          <Button text="Books" onPress={handleBooksPress} />
+          <Button text="Books" onPress={handleItemPress} />
         </View>
       </ScrollView>
     </View>

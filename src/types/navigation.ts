@@ -1,3 +1,4 @@
+import { AffiliateItem } from "@components/AffiliateCard";
 import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
@@ -6,6 +7,10 @@ export type RootStackParamList = {
   Settings: undefined;
   Quotes: {
     philosopherId: string;
+  };
+  AffiliateItems: {
+    title: string;
+    items: AffiliateItem[];
   };
 };
 
