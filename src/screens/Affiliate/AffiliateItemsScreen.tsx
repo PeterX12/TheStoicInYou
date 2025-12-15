@@ -25,7 +25,6 @@ export default function AffiliateItemsScreen() {
       <AppBar title={title} showBackButton={true} />
 
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Disclaimer */}
         <View style={styles.disclaimer}>
           <Text style={styles.disclaimerText}>
             Disclosure: As an Amazon Associate I earn from qualifying purchases.
@@ -34,7 +33,6 @@ export default function AffiliateItemsScreen() {
           </Text>
         </View>
 
-        {/* Books List */}
         {items.map((item) => (
           <AffiliateCard
             key={item.id}

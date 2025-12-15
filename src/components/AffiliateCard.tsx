@@ -27,8 +27,30 @@ export default function AffiliateCard({
   style,
   ...props
 }: AffiliateCardProps) {
+  const [imageError, setImageError] = React.useState(false);
+
   return (
-    <TouchableOpacity style={[styles.card, style]} {...props}>
+    <TouchableOpacity
+      style={[styles.card, style]}
+      {...props}
+      activeOpacity={0.7}
+    >
+      {imageError ? (
+        <View style={styles.iconContainer}>
+          <Ionicons
+            name="book-outline"
+            size={40}
+            color="rgba(255,255,255,0.3)"
+          />
+        </View>
+      ) : (
+        <Image
+          source={{ uri: item.imageUrl }}
+          style={styles.image}
+          resizeMode="cover"
+          onError={() => setImageError(true)}
+        />
+      )}
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
 
       <View style={styles.content}>
@@ -67,6 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 12,
   },
+
   title: {
     color: "#FFF",
     fontSize: 16,
@@ -86,5 +109,14 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     padding: 4,
+  },
+  iconContainer: {
+    width: 60,
+    height: 80,
+    borderRadius: 6,
+    marginRight: 16,
+    backgroundColor: "rgba(255,255,255,0.05)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
