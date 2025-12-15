@@ -7,6 +7,9 @@ export const AppStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollViewContainer: {
+    flex: 1,
     backgroundColor: AppColors.AppBackground,
   },
   buttonContainer: {
@@ -15,6 +18,12 @@ export const AppStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: AppColors.AppBackground,
     paddingHorizontal: 76,
+  },
+  contentContainer: {
+    backgroundColor: AppColors.AppBackground,
+    width: "100%",
+    alignItems: "center",
+    paddingHorizontal: 16,
   },
 
   //Inputs

@@ -54,11 +54,12 @@ export const calculateLifeExpectancy = async (
     const daysLived = Math.floor(
       (today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    const daysRemaining = Math.max(0, totalDaysInLife - daysLived);
+    const daysRemaining = Math.max(0, Math.floor(totalDaysInLife - daysLived));
 
     const years = Math.floor(daysRemaining / 365);
-    const months = Math.floor((daysRemaining % 365) / 30);
-    const days = daysRemaining % 30;
+    const remainingAfterYears = daysRemaining % 365;
+    const months = Math.floor(remainingAfterYears / 30);
+    const days = Math.floor(remainingAfterYears % 30);
 
     return {
       timeRemaining: {
@@ -82,13 +83,11 @@ export const formatTimeRemaining = (time: TimeRemaining): string => {
     return "Today is your day to live fully";
   }
 
-  const parts = [];
-  if (time.years > 0)
-    parts.push(`${time.years} year${time.years !== 1 ? "s" : ""}`);
-  if (time.months > 0)
-    parts.push(`${time.months} month${time.months !== 1 ? "s" : ""}`);
-  if (time.days > 0)
-    parts.push(`${time.days} day${time.days !== 1 ? "s" : ""}`);
+  const parts = [
+    `${time.years} year${time.years !== 1 ? "s" : ""}`,
+    `${time.months} month${time.months !== 1 ? "s" : ""}`,
+    `${time.days} day${time.days !== 1 ? "s" : ""}`,
+  ];
 
-  return parts.join(", ") || "Less than a day";
+  return parts.join(", ");
 };

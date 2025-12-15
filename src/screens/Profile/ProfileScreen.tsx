@@ -44,7 +44,7 @@ export default function ProfileScreen() {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={AppStyles.scrollViewContainer}>
       <AppBar
         title={"Profile"}
         showBackButton={false}

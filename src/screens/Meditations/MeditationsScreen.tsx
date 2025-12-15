@@ -5,7 +5,7 @@ import { View, Text, ScrollView } from "react-native";
 
 export default function MeditationsScreen() {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Archive"} showBackButton={false} />
       <ScrollView
         contentContainerStyle={[AppStyles.fullScreen, { padding: 0 }]}

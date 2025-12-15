@@ -148,7 +148,7 @@ export default function OnboardingScreen() {
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   title: {
     color: AppColors.White,
     fontSize: 24,

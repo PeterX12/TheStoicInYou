@@ -1,5 +1,5 @@
 import { AppColors } from "constants/colors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Platform,
   StyleSheet,
@@ -32,6 +32,11 @@ const DatePicker = ({
 }: DatePickerProps) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempDate, setTempDate] = useState<Date | null>(value ?? null);
+
+  // Update tempDate when value prop changes
+  useEffect(() => {
+    setTempDate(value ?? null);
+  }, [value]);
 
   const handleDateChange = (event: any, date?: Date) => {
     if (Platform.OS === "android") {
@@ -66,7 +71,7 @@ const DatePicker = ({
       {showDatePicker && Platform.OS === "android" && (
         <View style={styles.androidPickerContainer}>
           <DateTimePicker
-            value={value || new Date()}
+            value={tempDate || new Date()}
             mode="date"
             display="spinner"
             onChange={handleDateChange}
