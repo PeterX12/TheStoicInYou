@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppStyles } from "constants/styles";
 import { philosophers } from "data";
+import { stoicBooks } from "data/products/books";
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { RootStackParamList } from "types/navigation";
@@ -18,7 +19,12 @@ export default function ArchiveScreen() {
     navigation.navigate("Quotes", { philosopherId: id });
   };
 
-  const handleItemPress = () => {};
+  const handleItemPress = () => {
+    navigation.navigate("AffiliateItems", {
+      title: "Stoic Books",
+      items: stoicBooks,
+    });
+  };
 
   return (
     <View style={AppStyles.scrollViewContainer}>

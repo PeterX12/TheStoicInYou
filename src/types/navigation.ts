@@ -1,5 +1,5 @@
-import { AffiliateItem } from "@components/AffiliateCard";
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { AffiliateItem } from "data/types/product";
 
 export type RootStackParamList = {
   Onboarding: undefined;
