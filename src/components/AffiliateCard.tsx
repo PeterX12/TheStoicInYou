@@ -16,17 +16,14 @@ export type AffiliateItem = {
   imageUrl: string;
   affiliateLink: string;
   price?: string;
-  category?: string;
 };
 
 interface AffiliateCardProps extends TouchableOpacityProps {
   item: AffiliateItem;
-  showCategory?: boolean;
 }
 
 export default function AffiliateCard({
   item,
-  showCategory = true,
   style,
   ...props
 }: AffiliateCardProps) {
@@ -35,9 +32,6 @@ export default function AffiliateCard({
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
 
       <View style={styles.content}>
-        {showCategory && item.category && (
-          <Text style={styles.category}>{item.category.toUpperCase()}</Text>
-        )}
         <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text>
@@ -72,13 +66,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     marginRight: 12,
-  },
-  category: {
-    color: "rgba(255,255,255,0.6)",
-    fontSize: 11,
-    fontWeight: "500",
-    letterSpacing: 0.5,
-    marginBottom: 4,
   },
   title: {
     color: "#FFF",

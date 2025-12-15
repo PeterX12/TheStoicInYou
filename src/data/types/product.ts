@@ -5,12 +5,10 @@ export interface AffiliateItem {
   imageUrl: string;
   affiliateLink: string;
   price?: string;
-  category: "book";
   tags?: string[];
 }
 
 export interface BookItem extends AffiliateItem {
   author: string;
   pages?: number;
-  category: "book";
 }
