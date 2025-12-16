@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { AppColors } from "constants/colors";
 import React from "react";
 import {
   TouchableOpacity,
@@ -37,11 +38,7 @@ export default function AffiliateCard({
     >
       {imageError ? (
         <View style={styles.iconContainer}>
-          <Ionicons
-            name="book-outline"
-            size={40}
-            color="rgba(255,255,255,0.3)"
-          />
+          <Ionicons name="book-outline" size={40} color={AppColors.White} />
         </View>
       ) : (
         <Image
@@ -63,7 +60,7 @@ export default function AffiliateCard({
       </View>
 
       <View style={styles.arrowContainer}>
-        <Ionicons name="chevron-forward" size={24} color="#666" />
+        <Ionicons name="chevron-forward" size={24} color={AppColors.Black} />
       </View>
     </TouchableOpacity>
   );
@@ -72,18 +69,23 @@ export default function AffiliateCard({
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "rgba(255,255,255,0.05)",
+    backgroundColor: AppColors.White,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   image: {
     width: 60,
     height: 80,
     borderRadius: 6,
     marginRight: 16,
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
+    backgroundColor: "rgba(0, 0, 0, 0.03)",
   },
   content: {
     flex: 1,
@@ -91,13 +93,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: "#FFF",
+    color: AppColors.Black,
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 4,
   },
   description: {
-    color: "rgba(255,255,255,0.7)",
+    color: "rgba(0, 0, 0, 0.7)",
     fontSize: 14,
     lineHeight: 18,
   },
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 6,
     marginRight: 16,
-    backgroundColor: "rgba(255,255,255,0.05)",
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
     justifyContent: "center",
     alignItems: "center",
   },

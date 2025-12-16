@@ -49,7 +49,7 @@ export default function AffiliateItemsScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    paddingBottom: 32, // Extra padding at bottom for scroll
+    paddingBottom: 32,
   },
   disclaimer: {
     backgroundColor: AppColors.White,
