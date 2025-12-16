@@ -47,11 +47,10 @@ export default function AffiliateCard({
         <Image
           source={{ uri: item.imageUrl }}
           style={styles.image}
-          resizeMode="cover"
+          resizeMode="contain"
           onError={() => setImageError(true)}
         />
       )}
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
 
       <View style={styles.content}>
         <Text style={styles.title} numberOfLines={2}>
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 6,
     marginRight: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.03)",
   },
   content: {
     flex: 1,
