@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   image: {
-    width: 60,
-    height: 80,
+    width: 70,
+    height: 95,
     borderRadius: 6,
     marginRight: 16,
     backgroundColor: "rgba(0, 0, 0, 0.03)",

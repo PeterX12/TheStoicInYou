@@ -1,7 +1,9 @@
 import AffiliateCard from "@components/AffiliateCard";
 import AppBar from "@components/AppBar";
+import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
+import { Strings } from "constants/strings";
 import { AppStyles } from "constants/styles";
 import React from "react";
 import { Linking, ScrollView, View, Text, StyleSheet } from "react-native";
@@ -27,10 +29,13 @@ export default function AffiliateItemsScreen() {
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.disclaimer}>
+          <Ionicons
+            name="information-circle-outline"
+            size={24}
+            color={AppColors.Black}
+          />
           <Text style={styles.disclaimerText}>
-            Disclosure: As an Amazon Associate I earn from qualifying purchases.
-            I only recommend books I genuinely believe will help your Stoic
-            journey.
+            {Strings.MODAL.timerInfoText}
           </Text>
         </View>
 
