@@ -24,7 +24,7 @@ const InfoModal = ({ isVisible, onClose, content }: InfoModalProps) => {
           onStartShouldSetResponder={() => true}
         >
           <View style={styles.iconRow}>
-            <View style={styles.centerIcon}>
+            <View style={styles.centerIconContainer}>
               <Ionicons
                 name="information-circle-outline"
                 size={24}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "center",
   },
-  centerIcon: {
+  centerIconContainer: {
     flex: 1,
     alignItems: "center",
   },

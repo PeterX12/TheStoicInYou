@@ -29,11 +29,13 @@ export default function AffiliateItemsScreen() {
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.disclaimer}>
-          <Ionicons
-            name="information-circle-outline"
-            size={24}
-            color={AppColors.Black}
-          />
+          <View style={styles.centerIconContainer}>
+            <Ionicons
+              name="information-circle-outline"
+              size={24}
+              color={AppColors.Black}
+            />
+          </View>
           <Text style={styles.disclaimerText}>
             {Strings.MODAL.timerInfoText}
           </Text>
@@ -67,5 +69,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     textAlign: "center",
+  },
+  centerIconContainer: {
+    flex: 1,
+    alignItems: "center",
   },
 });
