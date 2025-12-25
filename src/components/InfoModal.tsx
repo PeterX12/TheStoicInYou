@@ -1,5 +1,6 @@
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { AppColors } from "constants/colors";
+import { AppStyles } from "constants/styles";
 import React from "react";
 import { Modal, View, Text, StyleSheet, Pressable } from "react-native";
 
@@ -24,7 +25,7 @@ const InfoModal = ({ isVisible, onClose, content }: InfoModalProps) => {
           onStartShouldSetResponder={() => true}
         >
           <View style={styles.iconRow}>
-            <View style={styles.centerIconContainer}>
+            <View style={AppStyles.centerIconContainer}>
               <Ionicons
                 name="information-circle-outline"
                 size={24}
@@ -73,10 +74,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "relative",
     justifyContent: "center",
-  },
-  centerIconContainer: {
-    flex: 1,
-    alignItems: "center",
   },
   closeButton: {
     position: "absolute",

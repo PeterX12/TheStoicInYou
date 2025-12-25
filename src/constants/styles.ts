@@ -25,6 +25,11 @@ export const AppStyles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
   },
+  centerIconContainer: {
+    flex: 1,
+    alignItems: "center",
+    marginBottom: 8,
+  },
 
   //Inputs
   inputText: {

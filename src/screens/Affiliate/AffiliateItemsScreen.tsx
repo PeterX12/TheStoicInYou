@@ -29,7 +29,7 @@ export default function AffiliateItemsScreen() {
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.disclaimer}>
-          <View style={styles.centerIconContainer}>
+          <View style={AppStyles.centerIconContainer}>
             <Ionicons
               name="information-circle-outline"
               size={24}
@@ -80,10 +80,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     textAlign: "center",
-  },
-  centerIconContainer: {
-    flex: 1,
-    alignItems: "center",
-    marginBottom: 8,
   },
 });
