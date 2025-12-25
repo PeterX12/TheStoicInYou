@@ -36,8 +36,12 @@ export default function AffiliateItemsScreen() {
               color={AppColors.Black}
             />
           </View>
+
           <Text style={styles.disclaimerText}>
-            {Strings.MODAL.timerInfoText}
+            <Text style={styles.disclaimerTitle}>
+              {Strings.MODAL.disclaimerTitle}
+            </Text>
+            {Strings.MODAL.disclaimerText}
           </Text>
         </View>
 
@@ -63,15 +67,23 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginBottom: 24,
+    paddingBottom: 32,
+  },
+  disclaimerTitle: {
+    color: AppColors.Black,
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: "bold",
   },
   disclaimerText: {
     color: AppColors.Black,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 20,
     textAlign: "center",
   },
   centerIconContainer: {
     flex: 1,
     alignItems: "center",
+    marginBottom: 8,
   },
 });
