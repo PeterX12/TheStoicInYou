@@ -7,23 +7,23 @@ export type MeditationFeature = {
   screenName: keyof MeditationsStackParamList;
 };
 
-export const meditationFeature: MeditationFeature[] = [
+export const meditationFeatures: MeditationFeature[] = [
   {
     id: "mood",
     title: "How are you feeling?",
-    image: require("@assets/images/Emotions.png"),
+    image: require("../../../assets/images/Emotions.png"),
     screenName: "MoodTracker",
   },
   {
     id: "chat",
     title: "Talk to a Philosopher",
-    image: require("@assets/imagesAiMarcus.png"),
+    image: require("../../../assets/images/AiMarcus.png"),
     screenName: "PhilosopherChat",
   },
   {
     id: "journal",
     title: "Journal",
-    image: require("@assets/Journal.png"),
+    image: require("../../../assets/images/Journal.png"),
     screenName: "Journal",
   },
 ];
