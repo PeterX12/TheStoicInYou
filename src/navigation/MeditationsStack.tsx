@@ -1,5 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import JournalScreen from "@screens/Meditations/JournalScreen";
 import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
+import MoodTrackerScreen from "@screens/Meditations/MoodTrackerScreen";
+import PhilosopherChatScreen from "@screens/Meditations/PhilosopherChatScreen";
 
 const MeditationStack = createNativeStackNavigator();
 
@@ -10,6 +13,15 @@ export const MeditationsStackScreen = () => {
         name="MeditationHome"
         component={MeditationsScreen}
       />
+      <MeditationStack.Screen
+        name="MoodTracker"
+        component={MoodTrackerScreen}
+      />
+      <MeditationStack.Screen
+        name="PhilosopherChat"
+        component={PhilosopherChatScreen}
+      />
+      <MeditationStack.Screen name="Journal" component={JournalScreen} />
     </MeditationStack.Navigator>
   );
 };
