@@ -6,7 +6,7 @@ import { AppStyles } from "constants/styles";
 import { meditationFeatures } from "data/meditations/features";
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { MeditationsStackParamList } from "types/meditations-navigation";
+import { MeditationsStackParamList } from "types/navigation";
 
 type NavigationProp = NativeStackNavigationProp<MeditationsStackParamList>;
 

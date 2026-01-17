@@ -13,10 +13,33 @@ export type RootStackParamList = {
   };
 };
 
+export type ArchiveStackParamList = {
+  ArchiveHome: undefined;
+  Quotes: {
+    philosopherId: string;
+  };
+  AffiliateItems: {
+    title: string;
+    items: AffiliateItem[];
+  };
+};
+
+export type MeditationsStackParamList = {
+  MeditationHome: undefined;
+  MoodTracker: undefined;
+  PhilosopherChat: undefined;
+  Journal: undefined;
+};
+
+export type ProfileStackParamList = {
+  ProfileHome: undefined;
+  Settings: undefined;
+};
+
 export type TabParamList = {
-  Archive: undefined;
-  Meditations: undefined;
-  Profile: undefined;
+  Archive: NavigatorScreenParams<ArchiveStackParamList>;
+  Meditations: NavigatorScreenParams<MeditationsStackParamList>;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 declare global {

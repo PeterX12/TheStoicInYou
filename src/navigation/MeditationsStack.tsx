@@ -3,8 +3,9 @@ import JournalScreen from "@screens/Meditations/JournalScreen";
 import MeditationsScreen from "@screens/Meditations/MeditationsScreen";
 import MoodTrackerScreen from "@screens/Meditations/MoodTrackerScreen";
 import PhilosopherChatScreen from "@screens/Meditations/PhilosopherChatScreen";
+import { MeditationsStackParamList } from "types/navigation";
 
-const MeditationStack = createNativeStackNavigator();
+const MeditationStack = createNativeStackNavigator<MeditationsStackParamList>();
 
 export const MeditationsStackScreen = () => {
   return (

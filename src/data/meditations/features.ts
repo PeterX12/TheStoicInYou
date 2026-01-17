@@ -1,4 +1,4 @@
-import { MeditationsStackParamList } from "types/meditations-navigation";
+import { MeditationsStackParamList } from "types/navigation";
 
 export type MeditationFeature = {
   id: string;
