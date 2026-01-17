@@ -24,7 +24,7 @@ export default function MeditationsScreen() {
             key={feature.id}
             imageSource={feature.image}
             text={feature.title}
-            OnPress={() => navigation.navigate(feature.screenName)}
+            onPress={() => navigation.navigate(feature.screenName)}
             containerStyle={styles.featureItem}
           />
         ))}

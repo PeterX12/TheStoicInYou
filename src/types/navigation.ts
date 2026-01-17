@@ -4,7 +4,6 @@ import { AffiliateItem } from "data/types/product";
 export type RootStackParamList = {
   Onboarding: undefined;
   MainTab: NavigatorScreenParams<TabParamList>;
-  // Settings: undefined;
   Quotes: {
     philosopherId: string;
   };
