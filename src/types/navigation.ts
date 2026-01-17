@@ -29,6 +29,7 @@ export type MeditationsStackParamList = {
   MoodTracker: undefined;
   PhilosopherChat: undefined;
   Journal: undefined;
+  JournalEntry: { entryId: string | null };
 };
 
 export type ProfileStackParamList = {
