@@ -26,6 +26,7 @@ export default function MeditationsScreen() {
             text={feature.title}
             onPress={() => navigation.navigate(feature.screenName)}
             containerStyle={styles.featureItem}
+            imageStyle={styles.imageStyle}
           />
         ))}
       </ScrollView>
@@ -37,5 +38,9 @@ const styles = StyleSheet.create({
   featureItem: {
     marginBottom: 32,
     width: "100%",
+  },
+  imageStyle: {
+    width: "100%",
+    paddingHorizontal: 50,
   },
 });
