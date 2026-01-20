@@ -71,8 +71,58 @@ export default function JournalScreen() {
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Journal"} showBackButton={true} />
+
+      <View style={styles.searchContainer}>
+        <Ionicons
+          name="search-outline"
+          size={20}
+          color={AppColors.PlaceHolder}
+        />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search notes"
+          placeholderTextColor={AppColors.PlaceHolder}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          clearButtonMode="never"
+        />
+        {searchQuery.length > 0 && (
+          <TouchableOpacity
+            onPress={() => setSearchQuery("")}
+            style={styles.clearButton}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <Ionicons
+              name="close-circle"
+              size={20}
+              color={AppColors.PlaceHolder}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: AppColors.White,
+    marginHorizontal: 20,
+    marginVertical: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  searchInput: {
+    flex: 1,
+    color: AppColors.Black,
+    fontSize: 16,
+    marginLeft: 12,
+    padding: 0,
+  },
+  clearButton: {
+    paddingLeft: 8,
+  },
+});
