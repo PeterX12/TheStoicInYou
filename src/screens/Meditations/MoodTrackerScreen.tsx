@@ -1,9 +1,11 @@
+import AppBar from "@components/AppBar";
+import { AppStyles } from "constants/styles";
 import { View, Text } from "react-native";
 
 export default function MoodTrackerScreen() {
   return (
-    <View>
-      <Text>Mood Tracker Screen</Text>
+    <View style={AppStyles.scrollViewContainer}>
+      <AppBar title={"How are you Feeling?"} showBackButton={true} />
     </View>
   );
 }
