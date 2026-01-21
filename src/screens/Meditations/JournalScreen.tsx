@@ -169,7 +169,7 @@ export default function JournalScreen() {
                     {formatDate(entry.updatedAt)}
                   </Text>
                   {entry.updatedAt.getTime() !== entry.createdAt.getTime() && (
-                    <Text style={styles.editedBadge}>Edited</Text>
+                    <Text style={styles.editedFont}>Edited</Text>
                   )}
                 </View>
               </View>
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     color: AppColors.PlaceHolder,
     fontSize: 12,
   },
-  editedBadge: {
+  editedFont: {
     color: AppColors.PlaceHolder,
     fontSize: 10,
     backgroundColor: AppColors.White,
