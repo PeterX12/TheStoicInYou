@@ -78,6 +78,14 @@ export default function JournalScreen() {
         .includes(searchQuery.toLocaleLowerCase()),
   );
 
+  const handleEditEntry = (entry: JournalEntry) => {
+    navigation.navigate("JournalEntry", { entryId: entry.id });
+  };
+
+  const handleDeleteEntry = (entry: JournalEntry) => {
+    setEntryToDelete(entry);
+  };
+
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Journal"} showBackButton={true} />
@@ -117,14 +125,19 @@ export default function JournalScreen() {
           filteredEntries.length === 0 && styles.emptyListContainer,
         ]}
       >
-
-        { isLoading ? (
+        {isLoading ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyStateSubtitle}>Loading your reflections...</Text>
+            <Text style={styles.emptyStateSubtitle}>
+              Loading your reflections...
+            </Text>
           </View>
-          ) : filteredEntries.length === 0 ? (
-            <View style={styles.emptyState}>
-            <Ionicons name="document-text-outline" size={64} color={AppColors.PlaceHolder} />
+        ) : filteredEntries.length === 0 ? (
+          <View style={styles.emptyState}>
+            <Ionicons
+              name="document-text-outline"
+              size={64}
+              color={AppColors.PlaceHolder}
+            />
             <Text style={styles.emptyStateTitle}>
               {searchQuery.length > 0 ? "No notes found" : "No reflections yet"}
             </Text>
@@ -134,8 +147,40 @@ export default function JournalScreen() {
                 : "Your Stoic journey begins with reflection"}
             </Text>
           </View>
-           ) : //Finish here }
-
+        ) : (
+          filteredEntries.map((entry) => (
+            <TouchableOpacity
+              key={entry.id}
+              style={styles.noteCard}
+              onPress={() => handleEditEntry(entry)}
+              onLongPress={() => handleDeleteEntry(entry)}
+              delayLongPress={500}
+              activeOpacity={0.7}
+            >
+              <View style={styles.noteCardContent}>
+                <Text style={styles.noteTitle} numberOfLines={1}>
+                  {entry.title || "Untitled Reflection"}
+                </Text>
+                <Text style={styles.notePreview} numberOfLines={2}>
+                  {getPreview(entry.content) || "No content yet"}
+                </Text>
+                <View style={styles.noteFooter}>
+                  <Text style={styles.noteDate}>
+                    {formatDate(entry.updatedAt)}
+                  </Text>
+                  {entry.updatedAt.getTime() !== entry.createdAt.getTime() && (
+                    <Text style={styles.editedBadge}>Edited</Text>
+                  )}
+                </View>
+              </View>
+              <Ionicons
+                name="chevron-forward"
+                size={18}
+                color={AppColors.PlaceHolder}
+              />
+            </TouchableOpacity>
+          ))
+        )}
       </ScrollView>
     </View>
   );
@@ -187,5 +232,49 @@ const styles = StyleSheet.create({
     marginTop: 8,
     textAlign: "center",
     maxWidth: 280,
+  },
+  noteCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: AppColors.White,
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 12,
+  },
+  noteCardContent: {
+    flex: 1,
+    marginRight: 12,
+  },
+  noteTitle: {
+    color: AppColors.Black,
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 6,
+  },
+  notePreview: {
+    color: AppColors.Black,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 10,
+    opacity: 0.8,
+  },
+  noteFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  noteDate: {
+    color: AppColors.PlaceHolder,
+    fontSize: 12,
+  },
+  editedBadge: {
+    color: AppColors.PlaceHolder,
+    fontSize: 10,
+    backgroundColor: AppColors.White,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: AppColors.PlaceHolder,
   },
 });
