@@ -68,6 +68,16 @@ export default function JournalScreen() {
     }
   };
 
+  const filteredEntries = entries.filter(
+    (entry) =>
+      entry.title
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()) ||
+      entry.content
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()),
+  );
+
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Journal"} showBackButton={true} />
@@ -100,6 +110,33 @@ export default function JournalScreen() {
           </TouchableOpacity>
         )}
       </View>
+
+      <ScrollView
+        contentContainerStyle={[
+          styles.listContainer,
+          filteredEntries.length === 0 && styles.emptyListContainer,
+        ]}
+      >
+
+        { isLoading ? (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyStateSubtitle}>Loading your reflections...</Text>
+          </View>
+          ) : filteredEntries.length === 0 ? (
+            <View style={styles.emptyState}>
+            <Ionicons name="document-text-outline" size={64} color={AppColors.PlaceHolder} />
+            <Text style={styles.emptyStateTitle}>
+              {searchQuery.length > 0 ? "No notes found" : "No reflections yet"}
+            </Text>
+            <Text style={styles.emptyStateSubtitle}>
+              {searchQuery.length > 0
+                ? "Try a different search term"
+                : "Your Stoic journey begins with reflection"}
+            </Text>
+          </View>
+           ) : //Finish here }
+
+      </ScrollView>
     </View>
   );
 }
@@ -124,5 +161,31 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     paddingLeft: 8,
+  },
+  listContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 100,
+  },
+  emptyListContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
+  emptyState: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 80,
+  },
+  emptyStateTitle: {
+    color: AppColors.White,
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 16,
+  },
+  emptyStateSubtitle: {
+    color: AppColors.PlaceHolder,
+    fontSize: 14,
+    marginTop: 8,
+    textAlign: "center",
+    maxWidth: 280,
   },
 });
