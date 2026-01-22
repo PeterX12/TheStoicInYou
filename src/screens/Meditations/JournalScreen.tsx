@@ -86,6 +86,20 @@ export default function JournalScreen() {
     setEntryToDelete(entry);
   };
 
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  const getPreview = (text: string) => {
+    const firstLine = text.split("\n")[0];
+    return firstLine.length > 80
+      ? firstLine.substring(0, 80) + "..."
+      : firstLine;
+  };
+
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Journal"} showBackButton={true} />
