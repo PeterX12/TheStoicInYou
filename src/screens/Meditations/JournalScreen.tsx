@@ -97,6 +97,23 @@ export default function JournalScreen() {
     });
   };
 
+  const confirmDelete = async () => {
+    if (entryToDelete) {
+      const updatedEntries = entries.filter((e) => e.id !== entryToDelete.id);
+      setEntries(updatedEntries);
+
+      try {
+        await AsyncStorage.setItem(
+          JOURNAL_STORAGE_KEY,
+          JSON.stringify(updatedEntries),
+        );
+      } catch (error) {
+        console.error("Failed to delete entry:", error);
+      }
+      setEntryToDelete(null);
+    }
+  };
+
   const getPreview = (text: string) => {
     const firstLine = text.split("\n")[0];
     return firstLine.length > 80
@@ -208,6 +225,37 @@ export default function JournalScreen() {
       >
         <Ionicons name="add" size={28} color={AppColors.White} />
       </TouchableOpacity>
+      <Modal visible={entryToDelete !== null} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Ionicons
+              name="trash-outline"
+              size={40}
+              color={AppColors.Error}
+              style={{ marginBottom: 12 }}
+            />
+            <Text style={styles.modalTitle}>Delete Reflection</Text>
+            <Text style={styles.modalText}>
+              Delete "{entryToDelete?.title || "Untitled Reflection"}"? This
+              action cannot be undone.
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setEntryToDelete(null)}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.deleteButton]}
+                onPress={confirmDelete}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -318,5 +366,62 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "#00000099",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  modalContent: {
+    backgroundColor: AppColors.White,
+    borderRadius: 16,
+    padding: 24,
+    width: "100%",
+    maxWidth: 340,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 8,
+    color: AppColors.Black,
+  },
+  modalText: {
+    fontSize: 15,
+    textAlign: "center",
+    color: AppColors.Black,
+    marginBottom: 24,
+    lineHeight: 20,
+    opacity: 0.8,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  cancelButton: {
+    backgroundColor: AppColors.PlaceHolder,
+    marginRight: 12,
+  },
+  cancelButtonText: {
+    color: AppColors.White,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  deleteButton: {
+    backgroundColor: AppColors.Error,
+  },
+  deleteButtonText: {
+    color: AppColors.White,
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
