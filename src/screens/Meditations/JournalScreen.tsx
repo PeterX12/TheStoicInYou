@@ -16,6 +16,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MeditationsStackParamList } from "types/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { STORAGE_KEYS } from "constants/strings";
 
 type JournalEntry = {
   id: string;
@@ -26,8 +27,6 @@ type JournalEntry = {
 };
 
 type NavigationProp = NativeStackNavigationProp<MeditationsStackParamList>;
-
-const JOURNAL_STORAGE_KEY = "@StoicApp_JournalEntries";
 
 export default function JournalScreen() {
   const navigation = useNavigation<NavigationProp>();
@@ -45,7 +44,7 @@ export default function JournalScreen() {
   const loadEntries = async () => {
     setIsLoading(true);
     try {
-      const stored = await AsyncStorage.getItem(JOURNAL_STORAGE_KEY);
+      const stored = await AsyncStorage.getItem(STORAGE_KEYS.JOURNAL_ENTRIES);
 
       if (stored) {
         const parsedEntries = JSON.parse(stored).map((entry: any) => ({
@@ -104,7 +103,7 @@ export default function JournalScreen() {
 
       try {
         await AsyncStorage.setItem(
-          JOURNAL_STORAGE_KEY,
+          STORAGE_KEYS.JOURNAL_ENTRIES,
           JSON.stringify(updatedEntries),
         );
       } catch (error) {
