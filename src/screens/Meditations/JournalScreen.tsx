@@ -78,6 +78,10 @@ export default function JournalScreen() {
         .includes(searchQuery.toLocaleLowerCase()),
   );
 
+  const handleCreateNew = () => {
+    navigation.navigate("JournalEntry", { entryId: null });
+  };
+
   const handleEditEntry = (entry: JournalEntry) => {
     navigation.navigate("JournalEntry", { entryId: entry.id });
   };
@@ -99,8 +103,6 @@ export default function JournalScreen() {
       ? firstLine.substring(0, 80) + "..."
       : firstLine;
   };
-
-  const handleCreateNew = () => {};
 
   return (
     <View style={AppStyles.scrollViewContainer}>
