@@ -100,6 +100,8 @@ export default function JournalScreen() {
       : firstLine;
   };
 
+  const handleCreateNew = () => {};
+
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Journal"} showBackButton={true} />
@@ -196,6 +198,14 @@ export default function JournalScreen() {
           ))
         )}
       </ScrollView>
+
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={handleCreateNew}
+        activeOpacity={0.8}
+      >
+        <Ionicons name="add" size={28} color={AppColors.White} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -290,5 +300,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: AppColors.PlaceHolder,
+  },
+  fab: {
+    position: "absolute",
+    bottom: 30,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: AppColors.Black,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 8,
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
 });
