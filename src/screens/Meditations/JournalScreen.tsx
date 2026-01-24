@@ -17,14 +17,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MeditationsStackParamList } from "types/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORAGE_KEYS } from "constants/strings";
-
-type JournalEntry = {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { JournalEntry } from "types/journal";
 
 type NavigationProp = NativeStackNavigationProp<MeditationsStackParamList>;
 

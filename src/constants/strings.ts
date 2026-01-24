@@ -7,5 +7,5 @@ export const Strings = {
 
 export const STORAGE_KEYS = {
   USER_PROFILE: "@user_profile",
-  JOURNAL_ENTRIES: "@StoicApp_JournalEntries",
+  JOURNAL_ENTRIES: "@journal_entries",
 };
