@@ -24,7 +24,13 @@ export default function MeditationsScreen() {
             key={feature.id}
             imageSource={feature.image}
             text={feature.title}
-            onPress={() => navigation.navigate(feature.screenName)}
+            onPress={() => {
+              if (feature.screenName === "JournalEntry") {
+                navigation.navigate("JournalEntry", { entryId: null });
+              } else {
+                navigation.navigate(feature.screenName as any);
+              }
+            }}
             containerStyle={styles.featureItem}
             imageStyle={styles.imageStyle}
           />
