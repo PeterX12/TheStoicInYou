@@ -158,6 +158,7 @@ export default function JournalEntryScreen() {
         rightIcon={
           <Ionicons name="trash-outline" size={22} color={AppColors.White} />
         }
+        onRightIconPress={handleDelete}
       />
 
       <ScrollView
