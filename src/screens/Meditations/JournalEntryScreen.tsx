@@ -103,17 +103,19 @@ export default function JournalEntryScreen() {
     }
   }, [title, content, entryId]);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("beforeRemove", (e) => {
-      e.preventDefault();
-      saveEntry();
-      navigation.dispatch(e.data.action);
-    });
-
-    return unsubscribe;
-  }, [navigation, saveEntry]);
+  const handleBackPress = useCallback(async () => {
+    if (title.trim() || content.trim()) {
+      await saveEntry();
+    }
+    navigation.goBack();
+  }, [saveEntry, navigation, title, content]);
 
   const handleDelete = () => {
+    if (!entryId) {
+      navigation.goBack();
+      return;
+    }
+
     Alert.alert(
       "Delete Reflection",
       "Are you sure you want to delete this reflection? This cannot be undone.",
@@ -141,6 +143,7 @@ export default function JournalEntryScreen() {
                   JSON.stringify(filteredEntries),
                 );
               }
+              navigation.goBack();
             } catch (error) {
               Alert.alert("Error", "Failed to delete the reflection.");
             }
@@ -159,6 +162,7 @@ export default function JournalEntryScreen() {
           <Ionicons name="trash-outline" size={22} color={AppColors.White} />
         }
         onRightIconPress={handleDelete}
+        onBackPress={handleBackPress}
       />
 
       <ScrollView

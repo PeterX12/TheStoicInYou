@@ -30,7 +30,12 @@ export default function JournalScreen() {
 
   useFocusEffect(
     React.useCallback(() => {
-      loadEntries();
+      // Small delay to ensure AsyncStorage operations complete
+      const timer = setTimeout(() => {
+        loadEntries();
+      }, 50);
+
+      return () => clearTimeout(timer);
     }, []),
   );
 
