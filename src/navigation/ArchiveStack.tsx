@@ -2,8 +2,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AffiliateItemsScreen from "@screens/Affiliate/AffiliateItemsScreen";
 import ArchiveScreen from "@screens/Archive/ArchiveScreen";
 import QuotesScreen from "@screens/Archive/QuotesScreen";
+import { ArchiveStackParamList } from "types/navigation";
 
-const ArchiveStack = createNativeStackNavigator();
+const ArchiveStack = createNativeStackNavigator<ArchiveStackParamList>();
 
 export const ArchiveStackScreen = () => {
   return (

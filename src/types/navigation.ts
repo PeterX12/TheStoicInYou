@@ -4,7 +4,6 @@ import { AffiliateItem } from "data/types/product";
 export type RootStackParamList = {
   Onboarding: undefined;
   MainTab: NavigatorScreenParams<TabParamList>;
-  Settings: undefined;
   Quotes: {
     philosopherId: string;
   };
@@ -14,10 +13,34 @@ export type RootStackParamList = {
   };
 };
 
+export type ArchiveStackParamList = {
+  ArchiveHome: undefined;
+  Quotes: {
+    philosopherId: string;
+  };
+  AffiliateItems: {
+    title: string;
+    items: AffiliateItem[];
+  };
+};
+
+export type MeditationsStackParamList = {
+  MeditationHome: undefined;
+  MoodTracker: undefined;
+  PhilosopherChat: undefined;
+  Journal: undefined;
+  JournalEntry: { entryId: string | null };
+};
+
+export type ProfileStackParamList = {
+  ProfileHome: undefined;
+  Settings: undefined;
+};
+
 export type TabParamList = {
-  Archive: undefined;
-  Meditations: undefined;
-  Profile: undefined;
+  Archive: NavigatorScreenParams<ArchiveStackParamList>;
+  Meditations: NavigatorScreenParams<MeditationsStackParamList>;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 declare global {

@@ -10,6 +10,7 @@ interface AppBarProps {
   showBackButton?: boolean;
   rightIcon?: React.ReactNode;
   onRightIconPress?: () => void;
+  onBackPress?: () => void;
 }
 
 const AppBar = ({
@@ -17,9 +18,18 @@ const AppBar = ({
   showBackButton = false,
   rightIcon,
   onRightIconPress,
+  onBackPress,
 }: AppBarProps) => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+
+  const handleBackPress = () => {
+    if (onBackPress) {
+      onBackPress();
+    } else {
+      navigation.goBack();
+    }
+  };
 
   return (
     <View
@@ -29,7 +39,7 @@ const AppBar = ({
       <View style={styles.content}>
         {showBackButton && (
           <Pressable
-            onPress={() => navigation.goBack()}
+            onPress={handleBackPress}
             style={styles.backButton}
             accessibilityLabel="Go back"
           >

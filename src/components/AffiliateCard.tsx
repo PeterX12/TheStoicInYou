@@ -42,7 +42,7 @@ export default function AffiliateCard({
       </View>
 
       <View style={styles.arrowContainer}>
-        <Ionicons name="chevron-forward" size={24} color="#666" />
+        <Ionicons name="chevron-forward" size={24} color="#ffffff" />
       </View>
     </TouchableOpacity>
   );

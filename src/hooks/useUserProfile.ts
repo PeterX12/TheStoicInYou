@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserProfile } from "types/user";
 import { clearUserData, saveUserProfile } from "services/userService";
+import { STORAGE_KEYS } from "constants/strings";
 
 export const useUserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -9,7 +10,7 @@ export const useUserProfile = () => {
 
   const loadProfile = async () => {
     try {
-      const userData = await AsyncStorage.getItem("@user_profile");
+      const userData = await AsyncStorage.getItem(STORAGE_KEYS.USER_PROFILE);
       if (userData) {
         const parsedData: UserProfile = JSON.parse(userData);
         setUserProfile(parsedData);
