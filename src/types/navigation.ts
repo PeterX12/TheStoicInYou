@@ -27,6 +27,7 @@ export type ArchiveStackParamList = {
 export type MeditationsStackParamList = {
   MeditationHome: undefined;
   MoodTracker: undefined;
+  EmotionInsight: { emotion: string };
   PhilosopherChat: undefined;
   Journal: undefined;
   JournalEntry: { entryId: string | null };
