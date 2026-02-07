@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { AppColors } from "constants/colors";
 import React from "react";
 import {
   TouchableOpacity,
@@ -42,7 +43,7 @@ export default function AffiliateCard({
       </View>
 
       <View style={styles.arrowContainer}>
-        <Ionicons name="chevron-forward" size={24} color="#ffffff" />
+        <Ionicons name="chevron-forward" size={24} color={AppColors.White} />
       </View>
     </TouchableOpacity>
   );
@@ -51,7 +52,7 @@ export default function AffiliateCard({
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "rgba(255,255,255,0.05)",
+    backgroundColor: "a(255,255,255,0.05)",
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -68,18 +69,18 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   title: {
-    color: "#FFF",
+    color: AppColors.White,
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 4,
   },
   description: {
-    color: "rgba(255,255,255,0.7)",
+    color: AppColors.White70,
     fontSize: 14,
     lineHeight: 18,
   },
   price: {
-    color: "#4CAF50",
+    color: AppColors.Success,
     fontSize: 14,
     fontWeight: "600",
     marginTop: 4,

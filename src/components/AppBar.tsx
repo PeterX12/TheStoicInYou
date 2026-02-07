@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: AppColors.AppBackground,
     elevation: 4,
-    shadowColor: "#000",
+    shadowColor: AppColors.Black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,

@@ -1,4 +1,5 @@
 // components/HourglassIcon.tsx
+import { AppColors } from "constants/colors";
 import * as React from "react";
 import Svg, { Path, G, Rect } from "react-native-svg";
 
@@ -44,7 +45,7 @@ const HourglassIcon = ({
     {/* Glass Structure (bottom part) */}
     <G opacity={0.9}>
       <Path
-        fill="#FFFFFF"
+        fill={AppColors.White}
         d="M36.612 129.001c0 90.002 107.115 125.495 107.115 125.495V40.267C84.569 40.267 36.612 69.843 36.612 129.001z"
       />
       <Path
@@ -60,7 +61,7 @@ const HourglassIcon = ({
         d="M250.842 375.893c0-90.002-107.115-125.496-107.115-125.496v214.23c59.158 0 107.115-29.577 107.115-88.734z"
       />
       <Path
-        fill="#FFFFFF"
+        fill={AppColors.White}
         d="M36.612 375.893c0-90.002 107.115-125.496 107.115-125.496v214.23c-59.158 0-107.115-29.577-107.115-88.734z"
       />
     </G>

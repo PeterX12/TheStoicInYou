@@ -4,11 +4,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
 import { emotions } from "data/emotions";
+import React from "react";
 import {
   View,
-  Text,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -25,13 +26,16 @@ export default function MoodTrackerScreen() {
 
   return (
     <View style={AppStyles.scrollViewContainer}>
-      <AppBar title={"How are you Feeling?"} showBackButton={true} />
+      <AppBar title={"How are you feeling?"} showBackButton={true} />
 
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>How are you feeling?</Text>
           <Text style={styles.subtitle}>
-            Take a moment to notice what’s present.
+            Take a moment to notice what's present
           </Text>
         </View>
 
@@ -61,25 +65,29 @@ export default function MoodTrackerScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flexGrow: 1,
+    padding: 24,
     paddingBottom: 40,
   },
   header: {
     alignItems: "center",
-    marginBottom: 40,
+    marginBottom: 48,
+    paddingHorizontal: 16,
   },
   title: {
     color: AppColors.White,
-    fontSize: 24,
-    fontWeight: "700",
+    fontSize: 28,
+    fontWeight: "600",
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: 12,
+    letterSpacing: -0.5,
   },
   subtitle: {
     color: AppColors.White,
     fontSize: 16,
     opacity: 0.8,
     textAlign: "center",
+    lineHeight: 22,
   },
   grid: {
     flexDirection: "row",
@@ -89,22 +97,22 @@ const styles = StyleSheet.create({
   emotionCard: {
     width: "48%",
     aspectRatio: 1,
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 20,
+    padding: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 16,
-    backgroundColor: AppColors.White,
-    elevation: 2,
+    marginBottom: 20,
+    backgroundColor: AppColors.White90,
     shadowColor: AppColors.Black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 8,
+    elevation: 3,
   },
   imageContainer: {
-    width: 80,
-    height: 80,
-    marginBottom: 12,
+    width: 72,
+    height: 72,
+    marginBottom: 16,
   },
   image: {
     width: "100%",
@@ -113,6 +121,7 @@ const styles = StyleSheet.create({
   emotionName: {
     color: AppColors.Black,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
+    letterSpacing: 0.5,
   },
 });

@@ -1,5 +1,5 @@
 import AppBar from "@components/AppBar";
-import Button from "@components/Button"; // Import the Button component
+import Button from "@components/Button";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
@@ -42,12 +42,15 @@ export default function EmotionInsightScreen() {
 
     if (!isPremium) {
       Alert.alert(
-        "Premium Feature",
-        "Talk with AI Philosophers is a premium feature. Upgrade to access guided conversations about your emotions.",
+        "Guided Conversation",
+        "Talk with AI Philosophers is available with a premium subscription. Would you like to learn more?",
         [
-          { text: "Not now", style: "cancel" },
           {
-            text: "Upgrade",
+            text: "Not now",
+            style: "cancel",
+          },
+          {
+            text: "Learn more",
             style: "default",
             onPress: () => {
               // navigation.navigate("Upgrade");
@@ -56,18 +59,21 @@ export default function EmotionInsightScreen() {
         ],
       );
     } else {
-      //   navigation.navigate("PhilosopherChat", {
-      //     initialContext: `I'm feeling ${emotion.name.toLocaleLowerCase()}. Can you help me process this from a Stoic perspective?`,
-      //   });
+      // navigation.navigate("PhilosopherChat", {
+      //   initialContext: `I'm feeling ${emotion.name.toLocaleLowerCase()}. Can you help me process this from a Stoic perspective?`,
+      // });
     }
   };
 
   return (
     <View style={AppStyles.scrollViewContainer}>
-      <AppBar title={emotion.name} showBackButton={true} />
+      <AppBar title={""} showBackButton={true} />
 
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.topSection}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.heroSection}>
           <View style={styles.imageContainer}>
             <Image
               source={emotion.image}
@@ -75,23 +81,21 @@ export default function EmotionInsightScreen() {
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.emotionTitle}>{emotion.name}</Text>
         </View>
 
-        <View style={styles.insightsContainer}>
+        <View style={styles.contentContainer}>
+          <Text style={styles.emotionTitle}>{emotion.name}</Text>
+
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>About this feeling</Text>
             <Text style={styles.sectionText}>{emotion.explanation}</Text>
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>A Stoic perspective</Text>
             <Text style={styles.sectionText}>{emotion.stoicPerspective}</Text>
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Reflection prompt</Text>
-            <Text style={styles.sectionPrompt}>"{emotion.prompt}"</Text>
+            <Text style={styles.promptText}>"{emotion.prompt}"</Text>
           </View>
         </View>
 
@@ -128,54 +132,53 @@ const styles = StyleSheet.create({
     color: AppColors.White,
     fontSize: 18,
   },
-  topSection: {
+  heroSection: {
     alignItems: "center",
     paddingVertical: 40,
     paddingHorizontal: 20,
-    backgroundColor: AppColors.White + "20",
+    backgroundColor: AppColors.White10,
   },
   imageContainer: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
+    width: 140,
+    height: 140,
   },
   image: {
     width: "100%",
     height: "100%",
   },
+  contentContainer: {
+    padding: 32,
+    paddingTop: 40,
+  },
   emotionTitle: {
     color: AppColors.White,
-    fontSize: 32,
-    fontWeight: "700",
-  },
-  insightsContainer: {
-    padding: 20,
+    fontSize: 36,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 40,
+    letterSpacing: -0.5,
   },
   section: {
-    marginBottom: 28,
-  },
-  sectionTitle: {
-    color: AppColors.White,
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 8,
+    marginBottom: 32,
   },
   sectionText: {
     color: AppColors.White,
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 17,
+    lineHeight: 26,
     opacity: 0.9,
   },
-  sectionPrompt: {
+  promptText: {
     color: AppColors.White,
-    fontSize: 18,
+    fontSize: 19,
     fontStyle: "italic",
-    lineHeight: 26,
+    lineHeight: 28,
+    textAlign: "center",
     marginTop: 8,
+    opacity: 0.95,
   },
   actionsContainer: {
-    padding: 20,
-    paddingBottom: 40,
+    padding: 32,
+    paddingBottom: 48,
     gap: 16,
   },
 });
