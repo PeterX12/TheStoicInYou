@@ -27,10 +27,16 @@ export type ArchiveStackParamList = {
 export type MeditationsStackParamList = {
   MeditationHome: undefined;
   MoodTracker: undefined;
-  EmotionInsight: { emotion: string };
+  EmotionInsight: {
+    emotion: string;
+    journalSaved?: boolean;
+  };
   PhilosopherChat: undefined;
   Journal: undefined;
-  JournalEntry: { entryId: string | null };
+  JournalEntry: {
+    entryId: string | null;
+    emotionId?: string;
+  };
 };
 
 export type ProfileStackParamList = {

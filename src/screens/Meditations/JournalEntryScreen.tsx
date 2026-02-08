@@ -27,7 +27,7 @@ type NavigationProp = NativeStackNavigationProp<MeditationsStackParamList>;
 export default function JournalEntryScreen() {
   const route = useRoute<JournalEntryRouteProp>();
   const navigation = useNavigation<NavigationProp>();
-  const { entryId } = route.params;
+  const { entryId, emotionId } = route.params;
 
   const [isNewEntry, setIsNewEntry] = useState(true);
   const [title, setTitle] = useState("");
@@ -107,8 +107,16 @@ export default function JournalEntryScreen() {
     if (title.trim() || content.trim()) {
       await saveEntry();
     }
-    navigation.goBack();
-  }, [saveEntry, navigation, title, content]);
+
+    if (emotionId) {
+      navigation.replace("EmotionInsight", {
+        emotion: emotionId,
+        journalSaved: true,
+      });
+    } else {
+      navigation.goBack();
+    }
+  }, [saveEntry, navigation, title, content, emotionId]);
 
   const handleDelete = () => {
     if (!entryId) {

@@ -24,9 +24,17 @@ export default function MoodTrackerScreen() {
     navigation.navigate("EmotionInsight", { emotion: emotionId });
   };
 
+  const handleBackPress = () => {
+    navigation.navigate("MeditationHome");
+  };
+
   return (
     <View style={AppStyles.scrollViewContainer}>
-      <AppBar title={"How are you feeling?"} showBackButton={true} />
+      <AppBar
+        title={"How are you feeling?"}
+        showBackButton={true}
+        onBackPress={handleBackPress}
+      />
 
       <ScrollView
         contentContainerStyle={styles.container}

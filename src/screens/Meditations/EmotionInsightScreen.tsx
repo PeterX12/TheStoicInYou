@@ -1,10 +1,18 @@
 import AppBar from "@components/AppBar";
 import Button from "@components/Button";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  RouteProp,
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
+import { STORAGE_KEYS } from "constants/strings";
 import { AppStyles } from "constants/styles";
 import { getEmotionById } from "data/emotions";
+import React, { useCallback, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, Alert, Image } from "react-native";
 import { MeditationsStackParamList } from "types/navigation";
 
@@ -19,8 +27,49 @@ export default function EmotionInsightScreen() {
   const route = useRoute<EmotionInsightRouteProp>();
   const navigation = useNavigation<NavigationProp>();
 
-  const { emotion: emotionId } = route.params;
+  const { emotion: emotionId, journalSaved } = route.params;
   const emotion = getEmotionById(emotionId);
+
+  const [hasJournaled, setHasJournaled] = useState(journalSaved || false);
+
+  useFocusEffect(
+    useCallback(() => {
+      const checkIfJournaled = async () => {
+        if (!emotion) return;
+
+        try {
+          const stored = await AsyncStorage.getItem(
+            STORAGE_KEYS.JOURNAL_ENTRIES,
+          );
+
+          if (stored) {
+            const entries = JSON.parse(stored);
+
+            const now = new Date();
+            const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+            const hasJournaledForThisEmotion = entries.some((entry: any) => {
+              const entryDate = new Date(entry.updatedAt);
+              const isRecent = entryDate > oneDayAgo;
+              const mentionsEmotion =
+                entry.content
+                  .toLowerCase()
+                  .includes(emotion.name.toLowerCase()) ||
+                entry.title.toLowerCase().includes(emotion.name.toLowerCase());
+
+              return isRecent && mentionsEmotion;
+            });
+
+            setHasJournaled(hasJournaledForThisEmotion || journalSaved);
+          }
+        } catch (error) {
+          console.error("Error checking journal entries:", error);
+        }
+      };
+
+      checkIfJournaled();
+    }, [emotion, journalSaved]),
+  );
 
   if (!emotion) {
     return (
@@ -34,7 +83,11 @@ export default function EmotionInsightScreen() {
   }
 
   const handleJournalReflect = () => {
-    navigation.navigate("JournalEntry", { entryId: null });
+    navigation.navigate("JournalEntry", {
+      entryId: null,
+      emotionId: emotion.id,
+    });
+    setHasJournaled(true);
   };
 
   const handleTalkThrough = () => {
@@ -65,9 +118,13 @@ export default function EmotionInsightScreen() {
     }
   };
 
+  const handleBackPress = () => {
+    navigation.navigate("MoodTracker");
+  };
+
   return (
     <View style={AppStyles.scrollViewContainer}>
-      <AppBar title={""} showBackButton={true} />
+      <AppBar title={""} showBackButton={true} onBackPress={handleBackPress} />
 
       <ScrollView
         contentContainerStyle={styles.container}
@@ -101,7 +158,9 @@ export default function EmotionInsightScreen() {
 
         <View style={styles.actionsContainer}>
           <Button
-            text="Reflect in Journal"
+            text={
+              hasJournaled ? "Add another reflection" : "Reflect in Journal"
+            }
             onPress={handleJournalReflect}
             iconName="journal-outline"
             iconPosition="left"
