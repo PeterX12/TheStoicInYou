@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
-import { StyleSheet, Dimensions, View, Pressable, Text } from "react-native";
+import { StyleSheet, View, Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RootStackParamList } from "types/navigation";
 
@@ -33,7 +33,12 @@ const AppBar = ({
 
   return (
     <View
-      style={[styles.container, { paddingTop: insets.top }]}
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+        },
+      ]}
       accessibilityRole="header"
     >
       <View style={styles.content}>
@@ -42,11 +47,12 @@ const AppBar = ({
             onPress={handleBackPress}
             style={styles.backButton}
             accessibilityLabel="Go back"
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
           >
             <Ionicons
               name="arrow-back-outline"
               size={24}
-              color={AppColors.White}
+              color={AppColors.SoftBlack}
             />
           </Pressable>
         )}
@@ -59,6 +65,7 @@ const AppBar = ({
           <Pressable
             onPress={onRightIconPress}
             style={styles.rightIconContainer}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
           >
             {rightIcon}
           </Pressable>
@@ -70,12 +77,9 @@ const AppBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.AppBackground,
-    elevation: 4,
-    shadowColor: AppColors.Black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    backgroundColor: AppColors.AppBackground + "F2",
+    borderBottomWidth: 1,
+    borderBottomColor: AppColors.White20,
     zIndex: 10,
   },
   content: {
@@ -85,16 +89,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   backButton: {
-    marginRight: 16,
+    marginRight: 12,
+    padding: 4,
   },
   title: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "500",
-    color: AppColors.White,
+    letterSpacing: -0.3,
+    color: AppColors.SoftBlack,
   },
   rightIconContainer: {
-    marginLeft: 16,
+    marginLeft: 12,
+    padding: 4,
   },
 });
 

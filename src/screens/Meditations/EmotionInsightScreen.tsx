@@ -123,8 +123,12 @@ export default function EmotionInsightScreen() {
   };
 
   return (
-    <View style={AppStyles.scrollViewContainer}>
-      <AppBar title={""} showBackButton={true} onBackPress={handleBackPress} />
+    <View style={[AppStyles.scrollViewContainer, styles.screenContainer]}>
+      <AppBar
+        title={emotion.name}
+        showBackButton={true}
+        onBackPress={handleBackPress}
+      />
 
       <ScrollView
         contentContainerStyle={styles.container}
@@ -164,6 +168,7 @@ export default function EmotionInsightScreen() {
             onPress={handleJournalReflect}
             iconName="journal-outline"
             iconPosition="left"
+            variant="primary"
           />
 
           <Button
@@ -171,6 +176,7 @@ export default function EmotionInsightScreen() {
             onPress={handleTalkThrough}
             iconName="chatbubble-outline"
             iconPosition="left"
+            variant="outline"
           />
         </View>
       </ScrollView>
@@ -179,6 +185,9 @@ export default function EmotionInsightScreen() {
 }
 
 const styles = StyleSheet.create({
+  screenContainer: {
+    backgroundColor: AppColors.AppBackground,
+  },
   container: {
     flexGrow: 1,
   },
@@ -188,14 +197,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   errorText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 18,
   },
   heroSection: {
     alignItems: "center",
-    paddingVertical: 40,
+    paddingVertical: 48,
     paddingHorizontal: 20,
-    backgroundColor: AppColors.White10,
+    backgroundColor: AppColors.AccentSoft,
+    marginHorizontal: 16,
+    marginTop: 16,
+    borderRadius: 28,
+
+    shadowColor: AppColors.AccentDark,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
   },
   imageContainer: {
     width: 140,
@@ -210,9 +228,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   emotionTitle: {
-    color: AppColors.White,
-    fontSize: 36,
-    fontWeight: "600",
+    color: AppColors.SoftBlack,
+    fontSize: 32,
+    fontWeight: "500",
     textAlign: "center",
     marginBottom: 40,
     letterSpacing: -0.5,
@@ -221,23 +239,23 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   sectionText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 17,
-    lineHeight: 26,
-    opacity: 0.9,
+    lineHeight: 28,
+    opacity: 0.8,
   },
   promptText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 19,
     fontStyle: "italic",
-    lineHeight: 28,
+    lineHeight: 30,
     textAlign: "center",
     marginTop: 8,
-    opacity: 0.95,
+    opacity: 0.85,
   },
   actionsContainer: {
     padding: 32,
     paddingBottom: 48,
-    gap: 16,
+    gap: 12,
   },
 });

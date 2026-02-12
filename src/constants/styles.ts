@@ -26,9 +26,9 @@ export const AppStyles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 
-  //Inputs
+  // Inputs
   inputText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 16,
     marginBottom: 8,
   },
@@ -38,6 +38,7 @@ export const AppStyles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
+    color: AppColors.SoftBlack,
   },
   inputContainer: {
     width: "100%",

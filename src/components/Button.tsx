@@ -8,7 +8,7 @@ interface ButtonProps {
   iconName?: keyof typeof Ionicons.glyphMap;
   iconPosition?: "left" | "right";
   disabled?: boolean;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "outline";
   fullWidth?: boolean;
 }
 
@@ -22,18 +22,58 @@ const Button = ({
   fullWidth = true,
 }: ButtonProps) => {
   const getBackgroundColor = () => {
-    if (disabled) return AppColors.PlaceHolder;
-    return variant === "primary" ? AppColors.White : AppColors.Black;
+    if (disabled) return AppColors.PlaceHolder + "80";
+
+    switch (variant) {
+      case "primary":
+        return AppColors.Accent;
+      case "secondary":
+        return AppColors.White;
+      case "outline":
+        return AppColors.Transparent;
+      default:
+        return AppColors.Accent;
+    }
   };
 
   const getTextColor = () => {
     if (disabled) return AppColors.White;
-    return variant === "primary" ? AppColors.Black : AppColors.White;
+
+    switch (variant) {
+      case "primary":
+        return AppColors.White;
+      case "secondary":
+        return AppColors.SoftBlack;
+      case "outline":
+        return AppColors.AccentDark;
+      default:
+        return AppColors.White;
+    }
   };
 
   const getIconColor = () => {
     if (disabled) return AppColors.White;
-    return variant === "primary" ? AppColors.Black : AppColors.White;
+
+    switch (variant) {
+      case "primary":
+        return AppColors.White;
+      case "secondary":
+        return AppColors.SoftBlack;
+      case "outline":
+        return AppColors.AccentDark;
+      default:
+        return AppColors.White;
+    }
+  };
+
+  const getBorderStyle = () => {
+    if (variant === "outline" && !disabled) {
+      return {
+        borderWidth: 1.5,
+        borderColor: AppColors.Accent,
+      };
+    }
+    return {};
   };
 
   return (
@@ -43,8 +83,16 @@ const Button = ({
         {
           backgroundColor: getBackgroundColor(),
           width: fullWidth ? "100%" : "auto",
+          ...getBorderStyle(),
         },
-        pressed && styles.buttonPressed,
+        pressed && !disabled && styles.buttonPressed,
+        pressed &&
+          variant === "primary" && { backgroundColor: AppColors.AccentDark },
+        pressed &&
+          variant === "outline" && {
+            backgroundColor: AppColors.AccentSoft,
+            borderColor: AppColors.AccentDark,
+          },
         disabled && styles.disabled,
         !fullWidth && styles.notFullWidth,
       ]}
@@ -81,7 +129,7 @@ const Button = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 16,
@@ -101,7 +149,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
   },
   iconLeft: {
     marginRight: 12,
@@ -110,7 +158,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   buttonPressed: {
-    opacity: 0.8,
+    opacity: 0.9,
   },
   disabled: {
     opacity: 0.5,
