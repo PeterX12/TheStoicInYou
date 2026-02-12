@@ -1,6 +1,7 @@
 import { Text, Pressable, View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 
 interface ButtonProps {
   text: string;
@@ -22,13 +23,13 @@ const Button = ({
   fullWidth = true,
 }: ButtonProps) => {
   const getBackgroundColor = () => {
-    if (disabled) return AppColors.PlaceHolder + "80";
+    if (disabled) return AppColors.Black20;
 
     switch (variant) {
       case "primary":
         return AppColors.Accent;
       case "secondary":
-        return AppColors.White;
+        return AppColors.White90;
       case "outline":
         return AppColors.Transparent;
       default:
@@ -37,7 +38,7 @@ const Button = ({
   };
 
   const getTextColor = () => {
-    if (disabled) return AppColors.White;
+    if (disabled) return AppColors.White50;
 
     switch (variant) {
       case "primary":
@@ -52,7 +53,7 @@ const Button = ({
   };
 
   const getIconColor = () => {
-    if (disabled) return AppColors.White;
+    if (disabled) return AppColors.White50;
 
     switch (variant) {
       case "primary":
@@ -88,6 +89,8 @@ const Button = ({
         pressed && !disabled && styles.buttonPressed,
         pressed &&
           variant === "primary" && { backgroundColor: AppColors.AccentDark },
+        pressed &&
+          variant === "secondary" && { backgroundColor: AppColors.White },
         pressed &&
           variant === "outline" && {
             backgroundColor: AppColors.AccentSoft,
@@ -129,15 +132,15 @@ const Button = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 14,
+    borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
   },
   notFullWidth: {
     alignSelf: "flex-start",
-    paddingHorizontal: 32,
+    paddingHorizontal: Spacing.xl,
   },
   content: {
     flexDirection: "row",
@@ -150,18 +153,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "500",
+    letterSpacing: -0.3,
   },
   iconLeft: {
-    marginRight: 12,
+    marginRight: Spacing.sm,
   },
   iconRight: {
-    marginLeft: 12,
+    marginLeft: Spacing.sm,
   },
   buttonPressed: {
-    opacity: 0.9,
+    opacity: 0.92,
   },
   disabled: {
-    opacity: 0.5,
+    opacity: 1,
   },
 });
 

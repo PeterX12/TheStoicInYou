@@ -3,6 +3,7 @@ import ImageWithText from "@components/ImageWithText";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import { AppStyles } from "constants/styles";
 import { meditationFeatures } from "data/meditations/features";
 import React from "react";
@@ -17,7 +18,6 @@ export default function MeditationsScreen() {
   return (
     <View style={AppStyles.scrollViewContainer}>
       <AppBar title={"Meditations"} showBackButton={false} />
-
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
@@ -26,7 +26,6 @@ export default function MeditationsScreen() {
           <Text style={styles.heroTitle}>Meditations</Text>
           <Text style={styles.heroSubtitle}>Pause. Reflect. Recenter.</Text>
         </View>
-
         <View style={styles.featuresContainer}>
           {meditationFeatures.map((feature) => (
             <ImageWithText
@@ -53,37 +52,39 @@ export default function MeditationsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    paddingBottom: 40,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.xxl,
   },
   heroSection: {
     backgroundColor: AppColors.AccentSoft,
     borderRadius: 28,
-    paddingVertical: 36,
-    paddingHorizontal: 24,
-    marginBottom: 40,
+    paddingVertical: Spacing.xl,
+    paddingHorizontal: Spacing.lg,
+    marginBottom: Spacing.xxl,
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: AppColors.White20,
   },
   heroTitle: {
     color: AppColors.SoftBlack,
     fontSize: 28,
-    fontWeight: "600",
+    fontWeight: "500",
     letterSpacing: -0.5,
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: Spacing.sm,
   },
   heroSubtitle: {
     color: AppColors.SoftBlack,
     fontSize: 16,
     textAlign: "center",
     opacity: 0.65,
-    lineHeight: 22,
+    lineHeight: Spacing.lg,
   },
   featuresContainer: {
     width: "100%",
   },
   featureCard: {
-    marginBottom: 24,
+    marginBottom: Spacing.lg,
   },
 });

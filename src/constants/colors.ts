@@ -18,12 +18,14 @@ export const AppColors = {
   White50: "#FFFFFF80",
   White20: "#FFFFFF33",
   White10: "#FFFFFF1A",
+  White15: "#FFFFFF26",
   White05: "#FFFFFF0D",
 
   Black90: "#000000E6",
   Black80: "#000000CC",
   Black50: "#00000080",
   Black40: "#00000066",
+  Black30: "#0000004D",
   Black20: "#00000033",
   Black10: "#0000001A",
 

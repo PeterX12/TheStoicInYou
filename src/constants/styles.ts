@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { AppColors } from "./colors";
+import { Spacing } from "./spacing";
 
 export const AppStyles = StyleSheet.create({
   // Containers
@@ -23,20 +24,20 @@ export const AppStyles = StyleSheet.create({
     backgroundColor: AppColors.AppBackground,
     width: "100%",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: Spacing.md,
   },
 
   // Inputs
   inputText: {
     color: AppColors.SoftBlack,
     fontSize: 16,
-    marginBottom: 8,
+    marginBottom: Spacing.xs,
   },
   input: {
     backgroundColor: AppColors.White,
     borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     fontSize: 16,
     color: AppColors.SoftBlack,
   },
@@ -46,6 +47,6 @@ export const AppStyles = StyleSheet.create({
   inputErrorText: {
     color: AppColors.Error,
     fontSize: 14,
-    marginTop: 8,
+    marginTop: Spacing.xs,
   },
 });

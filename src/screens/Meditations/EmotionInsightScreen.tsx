@@ -9,6 +9,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import { STORAGE_KEYS } from "constants/strings";
 import { AppStyles } from "constants/styles";
 import { getEmotionById } from "data/emotions";
@@ -105,16 +106,11 @@ export default function EmotionInsightScreen() {
           {
             text: "Learn more",
             style: "default",
-            onPress: () => {
-              // navigation.navigate("Upgrade");
-            },
+            onPress: () => {},
           },
         ],
       );
     } else {
-      // navigation.navigate("PhilosopherChat", {
-      //   initialContext: `I'm feeling ${emotion.name.toLocaleLowerCase()}. Can you help me process this from a Stoic perspective?`,
-      // });
     }
   };
 
@@ -123,7 +119,7 @@ export default function EmotionInsightScreen() {
   };
 
   return (
-    <View style={[AppStyles.scrollViewContainer, styles.screenContainer]}>
+    <View style={AppStyles.scrollViewContainer}>
       <AppBar
         title={emotion.name}
         showBackButton={true}
@@ -170,7 +166,6 @@ export default function EmotionInsightScreen() {
             iconPosition="left"
             variant="primary"
           />
-
           <Button
             text="Talk this through"
             onPress={handleTalkThrough}
@@ -185,11 +180,9 @@ export default function EmotionInsightScreen() {
 }
 
 const styles = StyleSheet.create({
-  screenContainer: {
-    backgroundColor: AppColors.AppBackground,
-  },
   container: {
     flexGrow: 1,
+    paddingBottom: Spacing.xxl,
   },
   errorContainer: {
     flex: 1,
@@ -202,18 +195,15 @@ const styles = StyleSheet.create({
   },
   heroSection: {
     alignItems: "center",
-    paddingVertical: 48,
-    paddingHorizontal: 20,
+    paddingVertical: Spacing.xxl,
+    paddingHorizontal: Spacing.lg,
     backgroundColor: AppColors.AccentSoft,
-    marginHorizontal: 16,
-    marginTop: 16,
+    marginHorizontal: Spacing.lg,
+    marginTop: Spacing.lg,
+    marginBottom: Spacing.xs,
     borderRadius: 28,
-
-    shadowColor: AppColors.AccentDark,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: AppColors.White20,
   },
   imageContainer: {
     width: 140,
@@ -224,19 +214,20 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   contentContainer: {
-    padding: 32,
-    paddingTop: 40,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.xl,
+    paddingBottom: Spacing.md,
   },
   emotionTitle: {
     color: AppColors.SoftBlack,
     fontSize: 32,
     fontWeight: "500",
     textAlign: "center",
-    marginBottom: 40,
+    marginBottom: Spacing.xxl,
     letterSpacing: -0.5,
   },
   section: {
-    marginBottom: 32,
+    marginBottom: Spacing.xl,
   },
   sectionText: {
     color: AppColors.SoftBlack,
@@ -250,12 +241,13 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     lineHeight: 30,
     textAlign: "center",
-    marginTop: 8,
+    marginTop: Spacing.xs,
     opacity: 0.85,
   },
   actionsContainer: {
-    padding: 32,
-    paddingBottom: 48,
-    gap: 12,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.xl,
+    gap: Spacing.sm,
   },
 });
