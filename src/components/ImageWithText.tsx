@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  TouchableOpacity,
+  Pressable,
   Image,
   Text,
   View,
@@ -29,55 +29,96 @@ const ImageWithText: React.FC<ImageWithTextProps> = ({
   textStyle = {},
   containerStyle = {},
   iconColor = AppColors.White,
-  iconSize = 16,
+  iconSize = 20,
 }) => {
   return (
-    <TouchableOpacity
-      style={[styles.container, containerStyle]}
+    <Pressable
+      style={({ pressed }) => [
+        styles.card,
+        containerStyle,
+        pressed && styles.cardPressed,
+        pressed && { opacity: 0.95 },
+      ]}
       onPress={onPress}
-      activeOpacity={0.7}
     >
       <Image
         source={imageSource}
         style={[styles.image, imageStyle]}
         resizeMode="cover"
       />
-      <View style={styles.textContainer}>
-        <Text style={[styles.text, textStyle]}>{text}</Text>
-        <Ionicons
-          name="arrow-forward"
-          size={iconSize}
-          color={iconColor}
-          style={styles.icon}
-        />
+
+      <View style={styles.overlay} />
+
+      <View style={styles.contentContainer}>
+        <Text style={[styles.title, textStyle]} numberOfLines={1}>
+          {text}
+        </Text>
+        <View style={styles.iconContainer}>
+          <Ionicons name="arrow-forward" size={iconSize} color={iconColor} />
+        </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    marginBottom: 20,
+  card: {
+    width: "100%",
+    height: 180,
+    borderRadius: 24,
+    overflow: "hidden",
+    marginBottom: 24,
+
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 3,
+  },
+  cardPressed: {
+    transform: [{ scale: 0.97 }],
   },
   image: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-    marginBottom: 16,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: "100%",
+    height: "100%",
   },
-  textContainer: {
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: AppColors.Black40,
+  },
+  contentContainer: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
+  title: {
+    fontSize: 20,
+    fontWeight: "600",
     color: AppColors.White,
+    flex: 1,
+    marginRight: 16,
+    letterSpacing: -0.3,
   },
-  icon: {
-    marginLeft: 4,
+  iconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: AppColors.White20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

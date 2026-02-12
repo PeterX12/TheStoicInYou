@@ -1,10 +1,33 @@
 export const AppColors = {
-  AppBackground: "#7C6E7F",
+  AppBackground: "#F6F4FA",
   tabBarActiveColor: "#606060",
   tabBarInactiveColor: "#000000",
 
   White: "#FFFFFF",
   Black: "#000000",
+  SoftBlack: "#1E1E1E",
   PlaceHolder: "#575757",
   Error: "#F80814",
+  Success: "#4CAF50",
+  Transparent: "transparent",
+
+  White95: "#FFFFFFF2",
+  White90: "#FFFFFFE6",
+  White80: "#FFFFFFCC",
+  White70: "#FFFFFFB3",
+  White50: "#FFFFFF80",
+  White20: "#FFFFFF33",
+  White10: "#FFFFFF1A",
+  White05: "#FFFFFF0D",
+
+  Black90: "#000000E6",
+  Black80: "#000000CC",
+  Black50: "#00000080",
+  Black40: "#00000066",
+  Black20: "#00000033",
+  Black10: "#0000001A",
+
+  Accent: "#B8A9D9",
+  AccentSoft: "#B8A9D91F",
+  AccentDark: "#9C8BC7",
 };

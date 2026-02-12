@@ -1,6 +1,7 @@
 import AffiliateCard from "@components/AffiliateCard";
 import AppBar from "@components/AppBar";
 import { RouteProp, useRoute } from "@react-navigation/native";
+import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
 import React from "react";
 import { Linking, ScrollView, View, Text, StyleSheet } from "react-native";
@@ -53,13 +54,13 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   disclaimer: {
-    backgroundColor: "rgba(255,255,255,0.1)",
+    backgroundColor: AppColors.White10,
     padding: 16,
     borderRadius: 8,
     marginBottom: 24,
   },
   disclaimerText: {
-    color: "#FFF",
+    color: AppColors.White,
     fontSize: 14,
     lineHeight: 20,
     textAlign: "center",
