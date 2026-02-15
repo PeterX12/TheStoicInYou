@@ -3,16 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
+import { Spacing } from "constants/spacing";
 import { getPhilosopherById } from "data/philosophers";
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import QuotesTab from "./QuotesTab";
 import BioTab from "./BioTab";
 
@@ -37,7 +31,7 @@ export default function QuotesScreen() {
         <View style={styles.tabContainer}>
           <TouchableOpacity
             onPress={() => setActiveTab("quotes")}
-            style={[styles.tab, activeTab == "quotes" && styles.activeTab]}
+            style={styles.tab}
           >
             <Text
               style={[
@@ -47,10 +41,11 @@ export default function QuotesScreen() {
             >
               Quotes
             </Text>
+            {activeTab === "quotes" && <View style={styles.activeUnderline} />}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setActiveTab("bio")}
-            style={[styles.tab, activeTab == "bio" && styles.activeTab]}
+            style={styles.tab}
           >
             <Text
               style={[
@@ -60,6 +55,7 @@ export default function QuotesScreen() {
             >
               Bio
             </Text>
+            {activeTab === "bio" && <View style={styles.activeUnderline} />}
           </TouchableOpacity>
         </View>
 
@@ -74,34 +70,35 @@ export default function QuotesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: AppColors.White,
-  },
   tabContainer: {
     flexDirection: "row",
-    marginHorizontal: 16,
-    marginVertical: 8,
-    borderRadius: 8,
-    padding: 4,
+    paddingHorizontal: Spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: AppColors.Black10,
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: Spacing.md,
     alignItems: "center",
-    borderRadius: 6,
-  },
-  activeTab: {
-    borderBottomWidth: 2,
-    borderBottomColor: AppColors.White,
+    position: "relative",
   },
   tabText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 16,
     fontWeight: "500",
+    opacity: 0.6,
   },
   activeTabText: {
-    color: AppColors.White,
+    color: AppColors.Accent,
     fontWeight: "600",
+    opacity: 1,
+  },
+  activeUnderline: {
+    position: "absolute",
+    bottom: -1,
+    left: 0,
+    right: 0,
+    height: 2,
+    backgroundColor: AppColors.Accent,
   },
 });
