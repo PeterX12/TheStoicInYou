@@ -23,6 +23,7 @@ export const AppColors = {
 
   Black90: "#000000E6",
   Black80: "#000000CC",
+  Black60: "#00000099",
   Black50: "#00000080",
   Black40: "#00000066",
   Black30: "#0000004D",

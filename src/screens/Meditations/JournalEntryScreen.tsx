@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
 import { STORAGE_KEYS } from "constants/strings";
 import { AppStyles } from "constants/styles";
+import { Spacing } from "constants/spacing";
 import { useCallback, useEffect, useState } from "react";
 import {
   Alert,
@@ -14,6 +15,8 @@ import {
   StyleSheet,
   TextInput,
   Text,
+  Modal,
+  TouchableOpacity,
 } from "react-native";
 import { JournalEntry } from "types/journal";
 import { MeditationsStackParamList } from "types/navigation";
@@ -32,6 +35,8 @@ export default function JournalEntryScreen() {
   const [isNewEntry, setIsNewEntry] = useState(true);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [entryTitle, setEntryTitle] = useState("");
 
   const loadEntry = useCallback(async (id: string): Promise<void> => {
     try {
@@ -49,6 +54,7 @@ export default function JournalEntryScreen() {
         if (entryToEdit) {
           setTitle(entryToEdit.title);
           setContent(entryToEdit.content);
+          setEntryTitle(entryToEdit.title);
         }
       }
     } catch (error) {
@@ -118,47 +124,32 @@ export default function JournalEntryScreen() {
     }
   }, [saveEntry, navigation, title, content, emotionId]);
 
-  const handleDelete = () => {
+  const handleDeletePress = () => {
     if (!entryId) {
       navigation.goBack();
       return;
     }
+    setShowDeleteModal(true);
+  };
 
-    Alert.alert(
-      "Delete Reflection",
-      "Are you sure you want to delete this reflection? This cannot be undone.",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              const stored = await AsyncStorage.getItem(
-                STORAGE_KEYS.JOURNAL_ENTRIES,
-              );
-              if (stored) {
-                const entries: JournalEntry[] = JSON.parse(stored);
-                const filteredEntries = entries.filter(
-                  (entry) => entry.id !== entryId,
-                );
+  const confirmDelete = async () => {
+    try {
+      const stored = await AsyncStorage.getItem(STORAGE_KEYS.JOURNAL_ENTRIES);
+      if (stored) {
+        const entries: JournalEntry[] = JSON.parse(stored);
+        const filteredEntries = entries.filter((entry) => entry.id !== entryId);
 
-                await AsyncStorage.setItem(
-                  STORAGE_KEYS.JOURNAL_ENTRIES,
-                  JSON.stringify(filteredEntries),
-                );
-              }
-              navigation.goBack();
-            } catch (error) {
-              Alert.alert("Error", "Failed to delete the reflection.");
-            }
-          },
-        },
-      ],
-    );
+        await AsyncStorage.setItem(
+          STORAGE_KEYS.JOURNAL_ENTRIES,
+          JSON.stringify(filteredEntries),
+        );
+      }
+      setShowDeleteModal(false);
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert("Error", "Failed to delete the reflection.");
+      setShowDeleteModal(false);
+    }
   };
 
   return (
@@ -167,15 +158,20 @@ export default function JournalEntryScreen() {
         title={isNewEntry ? "New Reflection" : "Edit Reflection"}
         showBackButton={true}
         rightIcon={
-          <Ionicons name="trash-outline" size={22} color={AppColors.White} />
+          <Ionicons
+            name="trash-outline"
+            size={22}
+            color={entryId ? AppColors.SoftBlack : AppColors.PlaceHolder}
+          />
         }
-        onRightIconPress={handleDelete}
+        onRightIconPress={handleDeletePress}
         onBackPress={handleBackPress}
       />
 
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
         <TextInput
           style={styles.titleInput}
@@ -184,55 +180,160 @@ export default function JournalEntryScreen() {
           placeholder="Title (Optional)"
           placeholderTextColor={AppColors.PlaceHolder}
           autoFocus={isNewEntry}
+          selectionColor={AppColors.Accent}
         />
+
+        <View style={styles.divider} />
 
         <TextInput
           style={styles.contentInput}
           value={content}
           onChangeText={setContent}
           placeholder="Write your reflection here..."
-          placeholderTextColor={AppColors.PlaceHolder}
+          placeholderTextColor={AppColors.PlaceHolder + "80"}
           multiline
           textAlignVertical="top"
+          selectionColor={AppColors.Accent}
         />
 
-        <View style={styles.footer}>
-          <Text style={styles.counterText}>
-            {} {content.length} / 5000 characters
-          </Text>
-        </View>
+        {content.length > 0 && (
+          <View style={styles.footer}>
+            <Text style={styles.counterText}>{content.length} / 5000</Text>
+          </View>
+        )}
       </ScrollView>
+
+      <Modal visible={showDeleteModal} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Ionicons
+              name="trash-outline"
+              size={40}
+              color={AppColors.Error}
+              style={styles.modalIcon}
+            />
+            <Text style={styles.modalTitle}>Delete Reflection</Text>
+            <Text style={styles.modalText}>
+              Delete "{entryTitle || "Untitled Reflection"}"? This action cannot
+              be undone.
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setShowDeleteModal(false)}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.deleteButton]}
+                onPress={confirmDelete}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    paddingBottom: 40,
+    flexGrow: 1,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.xl,
+    paddingBottom: Spacing.xxl,
   },
   titleInput: {
-    color: AppColors.Black,
+    color: AppColors.SoftBlack,
     fontSize: 28,
-    fontWeight: "700",
-    marginBottom: 24,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: AppColors.PlaceHolder,
+    fontWeight: "500",
+    letterSpacing: -0.5,
+    paddingVertical: Spacing.xs,
+    marginBottom: Spacing.xs,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: AppColors.Black10,
+    marginBottom: Spacing.lg,
   },
   contentInput: {
-    color: AppColors.Black,
-    fontSize: 16,
-    lineHeight: 26,
-    minHeight: 400,
+    color: AppColors.SoftBlack,
+    fontSize: 17,
+    lineHeight: 28,
+    minHeight: 300,
+    paddingVertical: Spacing.xs,
+    textAlignVertical: "top",
   },
   footer: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 20,
+    marginTop: Spacing.lg,
   },
   counterText: {
     color: AppColors.PlaceHolder,
-    fontSize: 12,
+    fontSize: 13,
+    opacity: 0.7,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: AppColors.Black60,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: Spacing.lg,
+  },
+  modalContent: {
+    backgroundColor: AppColors.White,
+    borderRadius: 20,
+    padding: Spacing.xl,
+    width: "100%",
+    maxWidth: 340,
+    alignItems: "center",
+  },
+  modalIcon: {
+    marginBottom: Spacing.sm,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    marginBottom: Spacing.xs,
+    color: AppColors.SoftBlack,
+  },
+  modalText: {
+    fontSize: 15,
+    textAlign: "center",
+    color: AppColors.SoftBlack,
+    marginBottom: Spacing.lg,
+    lineHeight: 22,
+    opacity: 0.8,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    gap: Spacing.sm,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: Spacing.md,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  cancelButton: {
+    backgroundColor: AppColors.AccentSoft,
+  },
+  cancelButtonText: {
+    color: AppColors.AccentDark,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  deleteButton: {
+    backgroundColor: AppColors.Error,
+  },
+  deleteButtonText: {
+    color: AppColors.White,
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

@@ -2,6 +2,7 @@ import AppBar from "@components/AppBar";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
+import { Spacing } from "constants/spacing";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -11,6 +12,7 @@ import {
   ScrollView,
   Text,
   Modal,
+  Pressable,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -30,11 +32,9 @@ export default function JournalScreen() {
 
   useFocusEffect(
     React.useCallback(() => {
-      // Small delay to ensure AsyncStorage operations complete
       const timer = setTimeout(() => {
         loadEntries();
       }, 50);
-
       return () => clearTimeout(timer);
     }, []),
   );
@@ -43,15 +43,12 @@ export default function JournalScreen() {
     setIsLoading(true);
     try {
       const stored = await AsyncStorage.getItem(STORAGE_KEYS.JOURNAL_ENTRIES);
-
       if (stored) {
         const parsedEntries = JSON.parse(stored).map((entry: any) => ({
           ...entry,
           createdAt: new Date(entry.createdAt),
           updatedAt: new Date(entry.updatedAt),
         }));
-
-        //Sort by most recent
         parsedEntries.sort(
           (a: JournalEntry, b: JournalEntry) =>
             b.updatedAt.getTime() - a.updatedAt.getTime(),
@@ -98,7 +95,6 @@ export default function JournalScreen() {
     if (entryToDelete) {
       const updatedEntries = entries.filter((e) => e.id !== entryToDelete.id);
       setEntries(updatedEntries);
-
       try {
         await AsyncStorage.setItem(
           STORAGE_KEYS.JOURNAL_ENTRIES,
@@ -140,7 +136,12 @@ export default function JournalScreen() {
           <TouchableOpacity
             onPress={() => setSearchQuery("")}
             style={styles.clearButton}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            hitSlop={{
+              top: Spacing.sm,
+              bottom: Spacing.sm,
+              left: Spacing.sm,
+              right: Spacing.sm,
+            }}
           >
             <Ionicons
               name="close-circle"
@@ -156,6 +157,7 @@ export default function JournalScreen() {
           styles.listContainer,
           filteredEntries.length === 0 && styles.emptyListContainer,
         ]}
+        showsVerticalScrollIndicator={false}
       >
         {isLoading ? (
           <View style={styles.emptyState}>
@@ -167,8 +169,8 @@ export default function JournalScreen() {
           <View style={styles.emptyState}>
             <Ionicons
               name="document-text-outline"
-              size={64}
-              color={AppColors.PlaceHolder}
+              size={72}
+              color={AppColors.White50}
             />
             <Text style={styles.emptyStateTitle}>
               {searchQuery.length > 0 ? "No notes found" : "No reflections yet"}
@@ -201,7 +203,9 @@ export default function JournalScreen() {
                     {formatDate(entry.updatedAt)}
                   </Text>
                   {entry.updatedAt.getTime() !== entry.createdAt.getTime() && (
-                    <Text style={styles.editedFont}>Edited</Text>
+                    <View style={styles.editedTag}>
+                      <Text style={styles.editedText}>Edited</Text>
+                    </View>
                   )}
                 </View>
               </View>
@@ -215,13 +219,13 @@ export default function JournalScreen() {
         )}
       </ScrollView>
 
-      <TouchableOpacity
-        style={styles.fab}
+      <Pressable
+        style={({ pressed }) => [styles.fab, pressed && styles.fabPressed]}
         onPress={handleCreateNew}
-        activeOpacity={0.8}
       >
         <Ionicons name="add" size={28} color={AppColors.White} />
-      </TouchableOpacity>
+      </Pressable>
+
       <Modal visible={entryToDelete !== null} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -229,7 +233,7 @@ export default function JournalScreen() {
               name="trash-outline"
               size={40}
               color={AppColors.Error}
-              style={{ marginBottom: 12 }}
+              style={styles.modalIcon}
             />
             <Text style={styles.modalTitle}>Delete Reflection</Text>
             <Text style={styles.modalText}>
@@ -262,24 +266,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: AppColors.White,
-    marginHorizontal: 20,
-    marginVertical: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 8,
+    marginHorizontal: Spacing.lg,
+    marginVertical: Spacing.md,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.md,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: AppColors.Black10,
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 6,
+    elevation: 2,
   },
   searchInput: {
     flex: 1,
-    color: AppColors.Black,
+    color: AppColors.SoftBlack,
     fontSize: 16,
-    marginLeft: 12,
+    marginLeft: Spacing.sm,
     padding: 0,
   },
   clearButton: {
-    paddingLeft: 8,
+    paddingLeft: Spacing.xs,
   },
   listContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: Spacing.lg,
     paddingBottom: 100,
   },
   emptyListContainer: {
@@ -289,45 +300,54 @@ const styles = StyleSheet.create({
   emptyState: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 80,
+    paddingHorizontal: Spacing.xl,
   },
   emptyStateTitle: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 18,
-    fontWeight: "600",
-    marginTop: 16,
+    fontWeight: "500",
+    marginTop: Spacing.lg,
+    marginBottom: Spacing.xs,
   },
   emptyStateSubtitle: {
     color: AppColors.PlaceHolder,
-    fontSize: 14,
-    marginTop: 8,
+    fontSize: 15,
     textAlign: "center",
+    lineHeight: 22,
     maxWidth: 280,
   },
   noteCard: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: AppColors.White,
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: 24,
+    padding: Spacing.lg,
+    marginBottom: Spacing.md,
+    borderWidth: 1,
+    borderColor: AppColors.Black10,
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.02,
+    shadowRadius: 8,
+    elevation: 1,
   },
   noteCardContent: {
     flex: 1,
-    marginRight: 12,
+    marginRight: Spacing.sm,
   },
   noteTitle: {
-    color: AppColors.Black,
-    fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 6,
+    color: AppColors.SoftBlack,
+    fontSize: 17,
+    fontWeight: "500",
+    marginBottom: Spacing.xs,
+    letterSpacing: -0.3,
   },
   notePreview: {
-    color: AppColors.Black,
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 10,
-    opacity: 0.8,
+    color: AppColors.SoftBlack,
+    fontSize: 15,
+    lineHeight: 22,
+    marginBottom: Spacing.md,
+    opacity: 0.7,
   },
   noteFooter: {
     flexDirection: "row",
@@ -336,80 +356,88 @@ const styles = StyleSheet.create({
   },
   noteDate: {
     color: AppColors.PlaceHolder,
-    fontSize: 12,
+    fontSize: 13,
   },
-  editedFont: {
-    color: AppColors.PlaceHolder,
-    fontSize: 10,
-    backgroundColor: AppColors.White,
-    paddingHorizontal: 6,
+  editedTag: {
+    backgroundColor: AppColors.AccentSoft,
+    paddingHorizontal: Spacing.xs,
     paddingVertical: 2,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: AppColors.PlaceHolder,
+    borderRadius: 12,
+  },
+  editedText: {
+    color: AppColors.AccentDark,
+    fontSize: 11,
+    fontWeight: "500",
   },
   fab: {
     position: "absolute",
-    bottom: 30,
-    right: 20,
+    bottom: Spacing.xl,
+    right: Spacing.lg,
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: AppColors.Black,
+    backgroundColor: AppColors.Accent,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 8,
-    shadowColor: AppColors.Black,
+    shadowColor: AppColors.AccentDark,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  fabPressed: {
+    transform: [{ scale: 0.94 }],
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: AppColors.Black80,
+    backgroundColor: AppColors.Black60,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: Spacing.lg,
   },
   modalContent: {
     backgroundColor: AppColors.White,
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: 20,
+    padding: Spacing.xl,
     width: "100%",
     maxWidth: 340,
     alignItems: "center",
   },
+  modalIcon: {
+    marginBottom: Spacing.sm,
+  },
   modalTitle: {
     fontSize: 20,
-    fontWeight: "700",
-    marginBottom: 8,
-    color: AppColors.Black,
+    fontWeight: "600",
+    marginBottom: Spacing.xs,
+    color: AppColors.SoftBlack,
   },
   modalText: {
     fontSize: 15,
     textAlign: "center",
-    color: AppColors.Black,
-    marginBottom: 24,
-    lineHeight: 20,
+    color: AppColors.SoftBlack,
+    marginBottom: Spacing.lg,
+    lineHeight: 22,
     opacity: 0.8,
   },
   modalButtons: {
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
+    gap: Spacing.sm,
   },
   modalButton: {
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: Spacing.md,
+    borderRadius: 12,
     alignItems: "center",
   },
   cancelButton: {
-    backgroundColor: AppColors.PlaceHolder,
-    marginRight: 12,
+    backgroundColor: AppColors.AccentSoft,
+    marginRight: Spacing.xs,
   },
   cancelButtonText: {
-    color: AppColors.White,
+    color: AppColors.AccentDark,
     fontSize: 16,
     fontWeight: "500",
   },
