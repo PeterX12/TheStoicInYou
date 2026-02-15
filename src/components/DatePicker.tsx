@@ -49,6 +49,8 @@ const DatePicker = ({
   const handlePress = () => {
     setIsFocused(true);
     onFocus?.();
+    // Initialize tempDate with value if exists, otherwise use current date
+    setTempDate(value || new Date());
     setShowDatePicker(true);
   };
 
@@ -73,7 +75,9 @@ const DatePicker = ({
     setIsFocused(false);
     onBlur?.();
     setShowDatePicker(false);
-    if (tempDate) onChange(tempDate);
+    if (tempDate) {
+      onChange(tempDate);
+    }
   };
 
   const handleCancel = () => {
@@ -136,7 +140,6 @@ const DatePicker = ({
         />
       </Pressable>
 
-      {/* REMOVED: Hint text - only show errors */}
       {error && <Text style={styles.errorText}>{error}</Text>}
 
       {/* Android Picker */}
