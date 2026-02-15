@@ -238,8 +238,6 @@ export default function OnboardingScreen() {
             <Button
               text={isSubmitting ? "Beginning..." : "Begin Your Journey"}
               onPress={handleSubmit}
-              iconName="arrow-forward"
-              iconPosition="right"
               disabled={isSubmitting}
               fullWidth
             />

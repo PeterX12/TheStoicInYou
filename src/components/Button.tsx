@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "600",
     letterSpacing: -0.3,
   },
   iconLeft: {
