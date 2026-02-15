@@ -113,7 +113,7 @@ const GenderPicker = ({
         />
       </Pressable>
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {/* REMOVED: The error display from here - now only shows in parent */}
 
       <Modal
         visible={showModal}
@@ -240,12 +240,6 @@ const styles = StyleSheet.create({
   },
   inputErrorText: {
     color: AppColors.Error,
-  },
-  errorText: {
-    color: AppColors.Error,
-    fontSize: 13,
-    marginTop: Spacing.xs,
-    fontWeight: "400",
   },
   modalOverlay: {
     flex: 1,

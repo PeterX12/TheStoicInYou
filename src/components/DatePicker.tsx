@@ -136,6 +136,7 @@ const DatePicker = ({
         />
       </Pressable>
 
+      {/* REMOVED: Hint text - only show errors */}
       {error && <Text style={styles.errorText}>{error}</Text>}
 
       {/* Android Picker */}
