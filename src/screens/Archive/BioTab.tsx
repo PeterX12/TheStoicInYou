@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     paddingTop: Spacing.xl,
     paddingBottom: Spacing.xxl,
-    alignItems: "center",
   },
   imageWrapper: {
     width: "100%",
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: "100%",
+    width: "80%",
     height: 220,
   },
   accentLine: {
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 2,
     backgroundColor: AppColors.AccentSoft,
-    marginVertical: Spacing.lg,
+    marginVertical: Spacing.xl,
   },
   bioText: {
     color: AppColors.SoftBlack,
@@ -63,5 +62,7 @@ const styles = StyleSheet.create({
     opacity: 0.85,
     textAlign: "left",
     width: "100%",
+    maxWidth: 600,
+    alignSelf: "center",
   },
 });
