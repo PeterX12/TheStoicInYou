@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 15,
     fontWeight: "500",
-    color: AppColors.SoftBlack,
+    color: AppColors.AccentDark,
     opacity: 0.6,
   },
   activeTabText: {
