@@ -6,7 +6,7 @@ import { AppStyles } from "constants/styles";
 import { Spacing } from "constants/spacing";
 import { getPhilosopherById } from "data/philosophers";
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import QuotesTab from "./QuotesTab";
 import BioTab from "./BioTab";
 
@@ -29,9 +29,13 @@ export default function QuotesScreen() {
         <AppBar title={philosopher?.name} showBackButton={true} />
 
         <View style={styles.tabContainer}>
-          <TouchableOpacity
+          <Pressable
             onPress={() => setActiveTab("quotes")}
-            style={styles.tab}
+            style={({ pressed }) => [
+              styles.tab,
+              activeTab === "quotes" && styles.activeTab,
+              pressed && styles.tabPressed,
+            ]}
           >
             <Text
               style={[
@@ -41,11 +45,15 @@ export default function QuotesScreen() {
             >
               Quotes
             </Text>
-            {activeTab === "quotes" && <View style={styles.activeUnderline} />}
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+
+          <Pressable
             onPress={() => setActiveTab("bio")}
-            style={styles.tab}
+            style={({ pressed }) => [
+              styles.tab,
+              activeTab === "bio" && styles.activeTab,
+              pressed && styles.tabPressed,
+            ]}
           >
             <Text
               style={[
@@ -55,8 +63,7 @@ export default function QuotesScreen() {
             >
               Bio
             </Text>
-            {activeTab === "bio" && <View style={styles.activeUnderline} />}
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {activeTab === "quotes" ? (
@@ -72,33 +79,34 @@ export default function QuotesScreen() {
 const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: "row",
-    paddingHorizontal: Spacing.lg,
-    borderBottomWidth: 1,
-    borderBottomColor: AppColors.Black10,
+    backgroundColor: AppColors.AccentSoft,
+    borderRadius: 28,
+    padding: Spacing.xs,
+    marginHorizontal: Spacing.lg,
+    marginVertical: Spacing.md,
   },
   tab: {
     flex: 1,
-    paddingVertical: Spacing.md,
+    paddingVertical: Spacing.sm,
     alignItems: "center",
-    position: "relative",
+    justifyContent: "center",
+    borderRadius: 24,
+  },
+  activeTab: {
+    backgroundColor: AppColors.Accent,
+  },
+  tabPressed: {
+    transform: [{ scale: 0.97 }],
   },
   tabText: {
-    color: AppColors.SoftBlack,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "500",
+    color: AppColors.SoftBlack,
     opacity: 0.6,
   },
   activeTabText: {
-    color: AppColors.Accent,
+    color: AppColors.White,
     fontWeight: "600",
     opacity: 1,
-  },
-  activeUnderline: {
-    position: "absolute",
-    bottom: -1,
-    left: 0,
-    right: 0,
-    height: 2,
-    backgroundColor: AppColors.Accent,
   },
 });
