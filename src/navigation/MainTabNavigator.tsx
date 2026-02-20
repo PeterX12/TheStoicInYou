@@ -28,13 +28,24 @@ export const MainTabNavigator = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: AppColors.tabBarActiveColor,
-        tabBarInactiveTintColor: AppColors.tabBarInactiveColor,
+        tabBarActiveTintColor: AppColors.Accent,
+        tabBarInactiveTintColor: AppColors.SoftBlack,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "500",
+          marginBottom: 4,
+        },
         tabBarStyle: {
-          height: 60,
-          paddingBottom: 8,
+          height: 72,
+          paddingBottom: 12,
+          paddingTop: 8,
+          backgroundColor: AppColors.White,
           borderTopWidth: 0,
-          elevation: 8,
+          shadowColor: AppColors.Black,
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.04,
+          shadowRadius: 8,
+          elevation: 0,
         },
         headerShown: false,
       })}
