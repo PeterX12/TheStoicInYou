@@ -2,6 +2,7 @@ import AffiliateCard from "@components/AffiliateCard";
 import AppBar from "@components/AppBar";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import { AppStyles } from "constants/styles";
 import React from "react";
 import { Linking, ScrollView, View, Text, StyleSheet } from "react-native";
@@ -50,19 +51,20 @@ export default function AffiliateItemsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    paddingBottom: 32,
+    padding: Spacing.lg,
+    paddingBottom: Spacing.xxl,
   },
   disclaimer: {
-    backgroundColor: AppColors.White10,
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 24,
+    backgroundColor: AppColors.AccentSoft,
+    padding: Spacing.lg,
+    borderRadius: 20,
+    marginBottom: Spacing.xl,
   },
   disclaimerText: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 22,
     textAlign: "center",
+    opacity: 0.8,
   },
 });

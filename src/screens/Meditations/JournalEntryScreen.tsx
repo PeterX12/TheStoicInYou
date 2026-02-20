@@ -157,13 +157,7 @@ export default function JournalEntryScreen() {
       <AppBar
         title={isNewEntry ? "New Reflection" : "Edit Reflection"}
         showBackButton={true}
-        rightIcon={
-          <Ionicons
-            name="trash-outline"
-            size={22}
-            color={entryId ? AppColors.SoftBlack : AppColors.PlaceHolder}
-          />
-        }
+        rightIconName="trash-outline"
         onRightIconPress={handleDeletePress}
         onBackPress={handleBackPress}
       />

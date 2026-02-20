@@ -29,11 +29,11 @@ export const MainTabNavigator = () => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: AppColors.Accent,
-        tabBarInactiveTintColor: AppColors.SoftBlack,
+        tabBarInactiveTintColor: AppColors.Black60,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "500",
-          marginBottom: 4,
+          marginBottom: 2,
         },
         tabBarStyle: {
           height: 72,

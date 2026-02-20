@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 interface AppBarProps {
   title: string;
   showBackButton?: boolean;
-  rightIcon?: React.ReactNode;
+  rightIconName?: keyof typeof Ionicons.glyphMap;
   onRightIconPress?: () => void;
   onBackPress?: () => void;
 }
@@ -16,7 +16,7 @@ interface AppBarProps {
 const AppBar = ({
   title,
   showBackButton = false,
-  rightIcon,
+  rightIconName,
   onRightIconPress,
   onBackPress,
 }: AppBarProps) => {
@@ -64,7 +64,7 @@ const AppBar = ({
           {title}
         </Text>
 
-        {rightIcon && (
+        {rightIconName && (
           <Pressable
             onPress={onRightIconPress}
             style={({ pressed }) => [
@@ -73,7 +73,11 @@ const AppBar = ({
             ]}
             hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
           >
-            {rightIcon}
+            <Ionicons
+              name={rightIconName}
+              size={20}
+              color={AppColors.SoftBlack}
+            />
           </Pressable>
         )}
       </View>
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   backButton: {
-    marginRight: 12,
+    marginRight: Spacing.sm,
     padding: 6,
     borderRadius: 8,
   },
@@ -111,12 +115,16 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   rightIconContainer: {
-    marginRight: Spacing.sm,
-    padding: Spacing.xs,
-    borderRadius: 8,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: AppColors.AccentSoft,
+    alignItems: "center",
+    justifyContent: "center",
   },
   rightIconPressed: {
-    backgroundColor: AppColors.Black10,
+    opacity: 0.8,
+    transform: [{ scale: 0.95 }],
   },
 });
 

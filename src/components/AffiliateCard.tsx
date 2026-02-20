@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import React from "react";
 import {
   TouchableOpacity,
@@ -29,7 +30,11 @@ export default function AffiliateCard({
   ...props
 }: AffiliateCardProps) {
   return (
-    <TouchableOpacity style={[styles.card, style]} {...props}>
+    <TouchableOpacity
+      style={[styles.card, style]}
+      activeOpacity={0.7}
+      {...props}
+    >
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
 
       <View style={styles.content}>
@@ -43,7 +48,7 @@ export default function AffiliateCard({
       </View>
 
       <View style={styles.arrowContainer}>
-        <Ionicons name="chevron-forward" size={24} color={AppColors.White} />
+        <Ionicons name="chevron-forward" size={20} color={AppColors.Accent} />
       </View>
     </TouchableOpacity>
   );
@@ -52,40 +57,53 @@ export default function AffiliateCard({
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "a(255,255,255,0.05)",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: AppColors.White,
+    borderRadius: 22,
+    padding: Spacing.lg,
+    marginBottom: Spacing.lg,
     alignItems: "center",
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    elevation: 1,
   },
   image: {
-    width: 60,
-    height: 80,
-    borderRadius: 6,
-    marginRight: 16,
+    width: 64,
+    height: 84,
+    borderRadius: 14,
+    marginRight: Spacing.md,
+    backgroundColor: AppColors.AccentSoft,
   },
   content: {
     flex: 1,
-    marginRight: 12,
+    marginRight: Spacing.sm,
   },
   title: {
-    color: AppColors.White,
+    color: AppColors.SoftBlack,
     fontSize: 16,
-    fontWeight: "600",
-    marginBottom: 4,
+    fontWeight: "500",
+    marginBottom: Spacing.xs,
+    letterSpacing: -0.2,
   },
   description: {
-    color: AppColors.White70,
+    color: AppColors.SoftBlack,
     fontSize: 14,
-    lineHeight: 18,
+    lineHeight: 20,
+    opacity: 0.55,
+    marginBottom: Spacing.xs,
   },
   price: {
-    color: AppColors.Success,
+    color: AppColors.Accent,
     fontSize: 14,
-    fontWeight: "600",
-    marginTop: 4,
+    fontWeight: "500",
   },
   arrowContainer: {
-    padding: 4,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: AppColors.AccentSoft,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
