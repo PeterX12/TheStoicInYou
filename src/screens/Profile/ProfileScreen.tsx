@@ -63,12 +63,10 @@ export default function ProfileScreen() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        {/* Hourglass Icon */}
         <View style={styles.iconSection}>
           <HourglassIcon size={180} />
         </View>
 
-        {/* Info Row */}
         <View style={styles.infoRow}>
           <Text style={styles.infoText}>
             A reminder of the time you have to live fully
@@ -86,7 +84,6 @@ export default function ProfileScreen() {
           </Pressable>
         </View>
 
-        {/* Countdown Card */}
         <View style={styles.countdownCard}>
           {loading ? (
             <ActivityIndicator color={AppColors.Accent} size="large" />
@@ -106,7 +103,6 @@ export default function ProfileScreen() {
           )}
         </View>
 
-        {/* Latin Mottos Section */}
         <View style={styles.mottoSection}>
           <View style={styles.mottoItem}>
             <Text style={styles.latinText}>Memento Mori</Text>
@@ -121,7 +117,6 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* Quote Section */}
         {randomProfileQuote && (
           <View style={styles.quoteCard}>
             <Text style={styles.quoteText}>"{randomProfileQuote}"</Text>
@@ -180,10 +175,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     shadowColor: AppColors.Black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 2,
   },
   countdownContent: {
     alignItems: "center",
@@ -196,8 +191,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   countdownText: {
-    fontSize: 32,
-    fontWeight: "500",
+    fontSize: 28,
+    fontWeight: "600",
     textAlign: "center",
     color: AppColors.SoftBlack,
     letterSpacing: -0.5,
@@ -214,12 +209,12 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.White,
     borderRadius: 28,
     padding: Spacing.lg,
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing.lg,
     shadowColor: AppColors.Black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 1,
+    shadowOpacity: 0.03,
+    shadowRadius: 6,
+    elevation: 0.5,
   },
   mottoItem: {
     alignItems: "center",
@@ -228,41 +223,45 @@ const styles = StyleSheet.create({
   mottoDivider: {
     height: 1,
     backgroundColor: AppColors.Black10,
-    marginVertical: Spacing.md,
+    marginVertical: Spacing.sm,
+    width: "60%",
+    alignSelf: "center",
   },
   latinText: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: "500",
     color: AppColors.SoftBlack,
     textAlign: "center",
     letterSpacing: 0.3,
     marginBottom: Spacing.xs,
+    opacity: 0.9,
   },
   translationText: {
-    fontSize: 15,
+    fontSize: 14,
     color: AppColors.SoftBlack,
     textAlign: "center",
-    opacity: 0.6,
+    opacity: 0.5,
     fontStyle: "italic",
   },
   quoteCard: {
     width: "100%",
     backgroundColor: AppColors.White,
     borderRadius: 28,
-    padding: Spacing.lg,
+    padding: Spacing.md,
+    marginTop: Spacing.xs,
     shadowColor: AppColors.Black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.02,
+    shadowRadius: 4,
+    elevation: 0,
   },
   quoteText: {
-    fontSize: 16,
+    fontSize: 15,
     color: AppColors.SoftBlack,
     textAlign: "center",
     fontStyle: "italic",
-    opacity: 0.8,
-    lineHeight: 24,
+    opacity: 0.7,
+    lineHeight: 22,
   },
   errorText: {
     color: AppColors.Error,
