@@ -121,7 +121,7 @@ export default function JournalScreen() {
       <View style={styles.searchContainer}>
         <Ionicons
           name="search-outline"
-          size={20}
+          size={18}
           color={AppColors.PlaceHolder}
         />
         <TextInput
@@ -145,7 +145,7 @@ export default function JournalScreen() {
           >
             <Ionicons
               name="close-circle"
-              size={20}
+              size={18}
               color={AppColors.PlaceHolder}
             />
           </TouchableOpacity>
@@ -167,18 +167,16 @@ export default function JournalScreen() {
           </View>
         ) : filteredEntries.length === 0 ? (
           <View style={styles.emptyState}>
-            <Ionicons
-              name="document-text-outline"
-              size={72}
-              color={AppColors.White50}
-            />
+            <Text style={styles.emptyStateEyebrow}>
+              {searchQuery.length > 0 ? "NO MATCHES" : "BEGIN HERE"}
+            </Text>
             <Text style={styles.emptyStateTitle}>
               {searchQuery.length > 0 ? "No notes found" : "No reflections yet"}
             </Text>
             <Text style={styles.emptyStateSubtitle}>
               {searchQuery.length > 0
                 ? "Try a different search term"
-                : "Your Stoic journey begins with reflection"}
+                : "Your first entry awaits. The unexamined life is not worth living."}
             </Text>
           </View>
         ) : (
@@ -265,29 +263,25 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: AppColors.White,
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.md,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.md,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: AppColors.Black10,
-    shadowColor: AppColors.Black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.03,
-    shadowRadius: 6,
-    elevation: 2,
+    paddingVertical: Spacing.xs,
+    borderBottomWidth: 1,
+    borderBottomColor: AppColors.Black10,
   },
   searchInput: {
     flex: 1,
     color: AppColors.SoftBlack,
-    fontSize: 16,
-    marginLeft: Spacing.sm,
-    padding: 0,
+    fontSize: 15,
+    marginLeft: Spacing.xs,
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: 0,
+    height: 36,
+    includeFontPadding: false,
+    textAlignVertical: "center",
   },
   clearButton: {
-    paddingLeft: Spacing.xs,
+    padding: Spacing.xs,
   },
   listContainer: {
     paddingHorizontal: Spacing.lg,
@@ -302,19 +296,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: Spacing.xl,
   },
+  emptyStateEyebrow: {
+    fontSize: 11,
+    fontWeight: "500",
+    color: AppColors.Accent,
+    letterSpacing: 0.8,
+    marginBottom: Spacing.sm,
+  },
   emptyStateTitle: {
     color: AppColors.SoftBlack,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "500",
-    marginTop: Spacing.lg,
-    marginBottom: Spacing.xs,
+    marginBottom: Spacing.sm,
+    textAlign: "center",
   },
   emptyStateSubtitle: {
-    color: AppColors.PlaceHolder,
+    color: AppColors.SoftBlack,
     fontSize: 15,
     textAlign: "center",
     lineHeight: 22,
     maxWidth: 280,
+    opacity: 0.6,
+    fontStyle: "italic",
   },
   noteCard: {
     flexDirection: "row",

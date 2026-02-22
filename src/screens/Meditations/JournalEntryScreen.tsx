@@ -157,7 +157,7 @@ export default function JournalEntryScreen() {
       <AppBar
         title={isNewEntry ? "New Reflection" : "Edit Reflection"}
         showBackButton={true}
-        rightIconName="trash-outline"
+        rightIconName={!isNewEntry ? "trash-outline" : undefined}
         onRightIconPress={handleDeletePress}
         onBackPress={handleBackPress}
       />
@@ -171,8 +171,8 @@ export default function JournalEntryScreen() {
           style={styles.titleInput}
           value={title}
           onChangeText={setTitle}
-          placeholder="Title (Optional)"
-          placeholderTextColor={AppColors.PlaceHolder}
+          placeholder="Title"
+          placeholderTextColor={AppColors.PlaceHolder + "80"}
           autoFocus={isNewEntry}
           selectionColor={AppColors.Accent}
         />
@@ -183,8 +183,8 @@ export default function JournalEntryScreen() {
           style={styles.contentInput}
           value={content}
           onChangeText={setContent}
-          placeholder="Write your reflection here..."
-          placeholderTextColor={AppColors.PlaceHolder + "80"}
+          placeholder="Begin writing..."
+          placeholderTextColor={AppColors.PlaceHolder + "60"}
           multiline
           textAlignVertical="top"
           selectionColor={AppColors.Accent}
@@ -241,34 +241,35 @@ const styles = StyleSheet.create({
   },
   titleInput: {
     color: AppColors.SoftBlack,
-    fontSize: 28,
-    fontWeight: "500",
-    letterSpacing: -0.5,
+    fontSize: 26,
+    fontWeight: "400",
+    letterSpacing: -0.3,
     paddingVertical: Spacing.xs,
     marginBottom: Spacing.xs,
   },
   divider: {
     height: 1,
     backgroundColor: AppColors.Black10,
-    marginBottom: Spacing.lg,
+    marginBottom: Spacing.xl,
   },
   contentInput: {
     color: AppColors.SoftBlack,
     fontSize: 17,
     lineHeight: 28,
     minHeight: 300,
-    paddingVertical: Spacing.xs,
+    paddingVertical: 0,
     textAlignVertical: "top",
+    fontWeight: "400",
   },
   footer: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: Spacing.lg,
+    marginTop: Spacing.xl,
   },
   counterText: {
     color: AppColors.PlaceHolder,
-    fontSize: 13,
-    opacity: 0.7,
+    fontSize: 12,
+    opacity: 0.6,
   },
   modalOverlay: {
     flex: 1,
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: AppColors.White,
-    borderRadius: 20,
+    borderRadius: 24,
     padding: Spacing.xl,
     width: "100%",
     maxWidth: 340,
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "500",
     marginBottom: Spacing.xs,
     color: AppColors.SoftBlack,
   },
@@ -328,6 +329,6 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     color: AppColors.White,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
   },
 });
