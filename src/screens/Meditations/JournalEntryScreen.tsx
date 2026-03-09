@@ -125,7 +125,8 @@ export default function JournalEntryScreen() {
   }, [saveEntry, navigation, title, content, emotionId]);
 
   const handleDeletePress = () => {
-    if (!entryId) {
+    if (!entryId && !title.trim() && !content.trim()) {
+      // New empty entry - just go back
       navigation.goBack();
       return;
     }
@@ -157,7 +158,7 @@ export default function JournalEntryScreen() {
       <AppBar
         title={isNewEntry ? "New Reflection" : "Edit Reflection"}
         showBackButton={true}
-        rightIconName={!isNewEntry ? "trash-outline" : undefined}
+        rightIconName="trash-outline"
         onRightIconPress={handleDeletePress}
         onBackPress={handleBackPress}
       />
@@ -208,8 +209,8 @@ export default function JournalEntryScreen() {
             />
             <Text style={styles.modalTitle}>Delete Reflection</Text>
             <Text style={styles.modalText}>
-              Delete "{entryTitle || "Untitled Reflection"}"? This action cannot
-              be undone.
+              Delete "{entryTitle || title || "Untitled Reflection"}"? This
+              action cannot be undone.
             </Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity
