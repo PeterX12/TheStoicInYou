@@ -3,16 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
 import { AppStyles } from "constants/styles";
+import { Spacing } from "constants/spacing";
 import { getPhilosopherById } from "data/philosophers";
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import QuotesTab from "./QuotesTab";
 import BioTab from "./BioTab";
 
@@ -35,9 +29,13 @@ export default function QuotesScreen() {
         <AppBar title={philosopher?.name} showBackButton={true} />
 
         <View style={styles.tabContainer}>
-          <TouchableOpacity
+          <Pressable
             onPress={() => setActiveTab("quotes")}
-            style={[styles.tab, activeTab == "quotes" && styles.activeTab]}
+            style={({ pressed }) => [
+              styles.tab,
+              activeTab === "quotes" && styles.activeTab,
+              pressed && styles.tabPressed,
+            ]}
           >
             <Text
               style={[
@@ -47,10 +45,15 @@ export default function QuotesScreen() {
             >
               Quotes
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+
+          <Pressable
             onPress={() => setActiveTab("bio")}
-            style={[styles.tab, activeTab == "bio" && styles.activeTab]}
+            style={({ pressed }) => [
+              styles.tab,
+              activeTab === "bio" && styles.activeTab,
+              pressed && styles.tabPressed,
+            ]}
           >
             <Text
               style={[
@@ -60,7 +63,7 @@ export default function QuotesScreen() {
             >
               Bio
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {activeTab === "quotes" ? (
@@ -74,34 +77,36 @@ export default function QuotesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: AppColors.White,
-  },
   tabContainer: {
     flexDirection: "row",
-    marginHorizontal: 16,
-    marginVertical: 8,
-    borderRadius: 8,
-    padding: 4,
+    backgroundColor: AppColors.AccentSoft,
+    borderRadius: 28,
+    padding: Spacing.xs,
+    marginHorizontal: Spacing.lg,
+    marginVertical: Spacing.md,
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: Spacing.sm,
     alignItems: "center",
-    borderRadius: 6,
+    justifyContent: "center",
+    borderRadius: 24,
   },
   activeTab: {
-    borderBottomWidth: 2,
-    borderBottomColor: AppColors.White,
+    backgroundColor: AppColors.Accent,
+  },
+  tabPressed: {
+    transform: [{ scale: 0.97 }],
   },
   tabText: {
-    color: AppColors.White,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "500",
+    color: AppColors.AccentDark,
+    opacity: 0.6,
   },
   activeTabText: {
     color: AppColors.White,
     fontWeight: "600",
+    opacity: 1,
   },
 });

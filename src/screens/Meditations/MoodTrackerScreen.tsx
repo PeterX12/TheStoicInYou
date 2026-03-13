@@ -2,6 +2,7 @@ import AppBar from "@components/AppBar";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import { AppStyles } from "constants/styles";
 import { emotions } from "data/emotions";
 import React, { useEffect, useRef } from "react";
@@ -51,7 +52,6 @@ export default function MoodTrackerScreen() {
           contentContainerStyle={styles.container}
           showsVerticalScrollIndicator={false}
         >
-          {/* Hero Section - Rounded Container */}
           <View style={styles.heroSection}>
             <Text style={styles.title}>How are you feeling?</Text>
             <Text style={styles.subtitle}>
@@ -59,7 +59,6 @@ export default function MoodTrackerScreen() {
             </Text>
           </View>
 
-          {/* Emotion Grid */}
           <View style={styles.grid}>
             {emotions.map((emotion) => (
               <Pressable
@@ -67,7 +66,7 @@ export default function MoodTrackerScreen() {
                 style={({ pressed }) => [
                   styles.emotionCard,
                   pressed && styles.emotionCardPressed,
-                  pressed && { backgroundColor: AppColors.AccentSoft },
+                  pressed && { backgroundColor: AppColors.White },
                 ]}
                 onPress={() => handleEmotionSelect(emotion.id)}
               >
@@ -93,33 +92,34 @@ export default function MoodTrackerScreen() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    paddingBottom: 80,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.xxl,
   },
   heroSection: {
     backgroundColor: AppColors.AccentSoft,
     borderRadius: 28,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
-    marginBottom: 48,
+    paddingVertical: Spacing.xl,
+    paddingHorizontal: Spacing.lg,
+    marginBottom: Spacing.xxl,
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: AppColors.White20,
   },
   title: {
     color: AppColors.SoftBlack,
-    fontSize: 26,
-    fontWeight: "600",
+    fontSize: 28,
+    fontWeight: "500",
     letterSpacing: -0.5,
     textAlign: "center",
-    marginBottom: 4,
+    marginBottom: Spacing.sm,
   },
   subtitle: {
     color: AppColors.SoftBlack,
-    fontSize: 15,
-    marginTop: 8,
+    fontSize: 16,
     textAlign: "center",
     opacity: 0.65,
-    lineHeight: 22,
+    lineHeight: Spacing.lg,
   },
   grid: {
     flexDirection: "row",
@@ -130,36 +130,35 @@ const styles = StyleSheet.create({
     width: "48%",
     aspectRatio: 1,
     borderRadius: 24,
-    padding: 18,
+    padding: Spacing.md,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
     backgroundColor: AppColors.White,
     borderWidth: 1,
-    borderColor: "#00000008",
-
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.04,
-    shadowRadius: 10,
+    borderColor: AppColors.Black10,
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 8,
     elevation: 1,
   },
   emotionCardPressed: {
     transform: [{ scale: 0.96 }],
   },
   imageWrapper: {
-    width: 84,
-    height: 84,
-    marginBottom: 14,
+    width: 96,
+    height: 96,
+    marginBottom: Spacing.sm,
     alignItems: "center",
     justifyContent: "center",
   },
   imageBackground: {
-    width: 84,
-    height: 84,
-    borderRadius: 42,
+    width: 96,
+    height: 96,
+    borderRadius: 48,
     backgroundColor: AppColors.AccentSoft,
-    padding: 14,
+    padding: Spacing.md,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
     color: AppColors.SoftBlack,
     fontSize: 16,
     fontWeight: "500",
-    marginTop: 4,
+    marginTop: Spacing.xs,
     textAlign: "center",
   },
 });

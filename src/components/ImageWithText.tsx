@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 
 interface ImageWithTextProps {
   imageSource: ImageSourcePropType;
@@ -19,6 +20,7 @@ interface ImageWithTextProps {
   containerStyle?: object;
   iconColor?: string;
   iconSize?: number;
+  variant?: "grid" | "feature";
 }
 
 const ImageWithText: React.FC<ImageWithTextProps> = ({
@@ -30,11 +32,13 @@ const ImageWithText: React.FC<ImageWithTextProps> = ({
   containerStyle = {},
   iconColor = AppColors.White,
   iconSize = 20,
+  variant = "feature",
 }) => {
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.card,
+        styles.baseCard,
+        variant === "grid" ? styles.gridCard : styles.featureCard,
         containerStyle,
         pressed && styles.cardPressed,
         pressed && { opacity: 0.95 },
@@ -47,10 +51,24 @@ const ImageWithText: React.FC<ImageWithTextProps> = ({
         resizeMode="cover"
       />
 
-      <View style={styles.overlay} />
+      <View
+        style={[styles.overlay, variant === "grid" && styles.gridOverlay]}
+      />
 
-      <View style={styles.contentContainer}>
-        <Text style={[styles.title, textStyle]} numberOfLines={1}>
+      <View
+        style={[
+          styles.contentContainer,
+          variant === "grid" && styles.gridContentContainer,
+        ]}
+      >
+        <Text
+          style={[
+            styles.baseTitle,
+            variant === "grid" ? styles.gridTitle : styles.featureTitle,
+            textStyle,
+          ]}
+          numberOfLines={1}
+        >
           {text}
         </Text>
         <View style={styles.iconContainer}>
@@ -62,18 +80,24 @@ const ImageWithText: React.FC<ImageWithTextProps> = ({
 };
 
 const styles = StyleSheet.create({
-  card: {
+  // Base styles
+  baseCard: {
     width: "100%",
+    overflow: "hidden",
+    marginBottom: Spacing.lg,
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 10,
+    elevation: 2,
+  },
+  featureCard: {
     height: 180,
     borderRadius: 24,
-    overflow: "hidden",
-    marginBottom: 24,
-
-    shadowColor: AppColors.Black,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    elevation: 3,
+  },
+  gridCard: {
+    height: 160,
+    borderRadius: 20,
   },
   cardPressed: {
     transform: [{ scale: 0.97 }],
@@ -93,32 +117,45 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: AppColors.Black40,
+    backgroundColor: AppColors.Black30,
   },
   contentContainer: {
     position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
+    bottom: Spacing.lg,
+    left: Spacing.lg,
+    right: Spacing.lg,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "600",
+  gridContentContainer: {
+    bottom: Spacing.md,
+    left: Spacing.md,
+    right: Spacing.md,
+  },
+  baseTitle: {
+    fontWeight: "500",
     color: AppColors.White,
     flex: 1,
-    marginRight: 16,
+    marginRight: Spacing.sm,
     letterSpacing: -0.3,
+  },
+  featureTitle: {
+    fontSize: 20,
+  },
+  gridTitle: {
+    fontSize: 16,
   },
   iconContainer: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: AppColors.White20,
+    backgroundColor: AppColors.White15,
     alignItems: "center",
     justifyContent: "center",
+  },
+  gridOverlay: {
+    backgroundColor: AppColors.Black20,
   },
 });
 

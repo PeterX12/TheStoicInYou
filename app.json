@@ -1,26 +1,27 @@
 {
   "expo": {
-    "name": "TheStoicInYou",
+    "name": "The Stoic In You",
     "slug": "TheStoicInYou",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconIOS.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#B8A9D9"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.peterlucan.TheStoicInYou"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/iconAndroid.png",
+        "backgroundColor": "#B8A9D9"
       },
-      "package": "com.anonymous.TheStoicInYou"
+      "package": "com.peterlucan.TheStoicInYou"
     },
     "web": {
       "favicon": "./assets/favicon.png"

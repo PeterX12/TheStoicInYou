@@ -1,14 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { RootStackParamList } from "types/navigation";
 
 interface AppBarProps {
   title: string;
   showBackButton?: boolean;
-  rightIcon?: React.ReactNode;
+  rightIconName?: keyof typeof Ionicons.glyphMap;
   onRightIconPress?: () => void;
   onBackPress?: () => void;
 }
@@ -16,7 +16,7 @@ interface AppBarProps {
 const AppBar = ({
   title,
   showBackButton = false,
-  rightIcon,
+  rightIconName,
   onRightIconPress,
   onBackPress,
 }: AppBarProps) => {
@@ -45,9 +45,12 @@ const AppBar = ({
         {showBackButton && (
           <Pressable
             onPress={handleBackPress}
-            style={styles.backButton}
+            style={({ pressed }) => [
+              styles.backButton,
+              pressed && styles.backButtonPressed,
+            ]}
             accessibilityLabel="Go back"
-            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
           >
             <Ionicons
               name="arrow-back-outline"
@@ -61,13 +64,20 @@ const AppBar = ({
           {title}
         </Text>
 
-        {rightIcon && (
+        {rightIconName && (
           <Pressable
             onPress={onRightIconPress}
-            style={styles.rightIconContainer}
-            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            style={({ pressed }) => [
+              styles.rightIconContainer,
+              pressed && styles.rightIconPressed,
+            ]}
+            hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
           >
-            {rightIcon}
+            <Ionicons
+              name={rightIconName}
+              size={20}
+              color={AppColors.SoftBlack}
+            />
           </Pressable>
         )}
       </View>
@@ -77,20 +87,24 @@ const AppBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.AppBackground + "F2",
-    borderBottomWidth: 1,
-    borderBottomColor: AppColors.White20,
+    backgroundColor: AppColors.AppBackground,
+    borderBottomWidth: 0.5,
+    borderBottomColor: AppColors.Black10,
     zIndex: 10,
   },
   content: {
     flexDirection: "row",
     alignItems: "center",
     height: 56,
-    paddingHorizontal: 16,
+    paddingHorizontal: Spacing.lg,
   },
   backButton: {
-    marginRight: 12,
-    padding: 4,
+    marginRight: Spacing.sm,
+    padding: 6,
+    borderRadius: 8,
+  },
+  backButtonPressed: {
+    backgroundColor: AppColors.Black10,
   },
   title: {
     flex: 1,
@@ -98,10 +112,19 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     letterSpacing: -0.3,
     color: AppColors.SoftBlack,
+    lineHeight: 22,
   },
   rightIconContainer: {
-    marginLeft: 12,
-    padding: 4,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: AppColors.AccentSoft,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  rightIconPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.95 }],
   },
 });
 

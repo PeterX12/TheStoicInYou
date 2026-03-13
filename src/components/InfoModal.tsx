@@ -1,5 +1,6 @@
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import { AppColors } from "constants/colors";
+import { Spacing } from "constants/spacing";
 import React from "react";
 import { Modal, View, Text, StyleSheet, Pressable } from "react-native";
 
@@ -20,26 +21,27 @@ const InfoModal = ({ isVisible, onClose, content }: InfoModalProps) => {
       <Pressable style={styles.overlay} onPress={onClose}>
         <View
           style={styles.modalContent}
-          // Prevent closing when clicking inside the modal
           onStartShouldSetResponder={() => true}
         >
-          <View style={styles.iconRow}>
-            <View style={styles.centerIcon}>
-              <Ionicons
-                name="information-circle-outline"
-                size={24}
-                color={AppColors.Black}
-              />
-            </View>
-            <Pressable style={styles.closeButton} onPress={onClose}>
-              <Ionicons
-                name="close-outline"
-                size={24}
-                color={AppColors.Black}
-              />
-            </Pressable>
+          <View style={styles.iconContainer}>
+            <Ionicons
+              name="information-circle-outline"
+              size={32}
+              color={AppColors.Accent}
+            />
           </View>
+
           <Text style={styles.content}>{content}</Text>
+
+          <Pressable
+            style={({ pressed }) => [
+              styles.closeButton,
+              pressed && styles.closeButtonPressed,
+            ]}
+            onPress={onClose}
+          >
+            <Text style={styles.closeButtonText}>Got it</Text>
+          </Pressable>
         </View>
       </Pressable>
     </Modal>
@@ -51,37 +53,55 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: AppColors.Black40,
+    backgroundColor: AppColors.Black50, // Slightly lighter overlay
   },
   modalContent: {
     backgroundColor: AppColors.White,
-    borderRadius: 8,
-    padding: 16,
-    paddingBottom: 32,
+    borderRadius: 28,
+    padding: Spacing.lg,
     alignItems: "center",
-    marginHorizontal: 16,
+    marginHorizontal: Spacing.lg,
+    maxWidth: 340,
+    width: "90%",
+    shadowColor: AppColors.Black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.04,
+    shadowRadius: 12,
+    elevation: 2,
+  },
+  iconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: AppColors.AccentSoft,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: Spacing.sm,
   },
   content: {
-    fontSize: 16,
-    color: AppColors.Black,
+    fontSize: 15,
+    color: AppColors.SoftBlack,
+    opacity: 0.85,
     textAlign: "center",
-  },
-  iconRow: {
-    marginBottom: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    position: "relative",
-    justifyContent: "center",
-  },
-  centerIcon: {
-    flex: 1,
-    alignItems: "center",
+    lineHeight: 22,
+    marginBottom: Spacing.md,
   },
   closeButton: {
-    position: "absolute",
-    right: 0,
-    zIndex: 1,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: 20,
+    backgroundColor: AppColors.AccentSoft,
+    minWidth: 100,
+    alignItems: "center",
+  },
+  closeButtonPressed: {
+    opacity: 0.7,
+    transform: [{ scale: 0.97 }],
+  },
+  closeButtonText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: AppColors.Accent,
   },
 });
 
